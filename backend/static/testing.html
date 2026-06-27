@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Urban Intel — E2E Testing Reference</title>
+  <style>
+    :root {
+      --bg: #0B1220;
+      --bg2: #0F172A;
+      --surface: #111A2E;
+      --surface2: #152037;
+      --text: #E6EDF7;
+      --muted: #94A3B8;
+      --dim: #64748B;
+      --border: #1E2A44;
+      --brand: #3B82F6;
+      --brand2: #60A5FA;
+      --critical: #EF4444;
+      --warning: #F59E0B;
+      --info: #06B6D4;
+      --success: #10B981;
+      --citizen: #3B82F6;
+      --fire: #EF4444;
+      --ambulance: #10B981;
+      --police: #8B5CF6;
+      --admin: #F59E0B;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px 96px
+    }
+
+    /* HEADER */
+    header.hero {
+      position: relative;
+      padding: 80px 24px 64px;
+      background: radial-gradient(1200px 600px at 80% -20%, #1e3a8a55, transparent 60%), radial-gradient(800px 400px at -10% 30%, #10b98133, transparent 60%), var(--bg);
+      overflow: hidden;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    header .pill {
+      display: inline-block;
+      background: #1e3a8a44;
+      border: 1px solid #3b82f655;
+      padding: 6px 14px;
+      border-radius: 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--brand2);
+      margin-bottom: 24px
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 64px;
+      letter-spacing: -2px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, #60A5FA 60%, #10B981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    header h1 small {
+      font-weight: 400;
+      font-size: 18px;
+      display: block;
+      letter-spacing: 0;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    header p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 20px 0 0
+    }
+
+    /* STICKY NAV */
+    nav.toc {
+      position: sticky;
+      top: 0;
+      background: rgba(11, 18, 32, .92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 20;
+      padding: 12px 0;
+      margin: 0 -24px 32px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    nav.toc .inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    nav.toc .inner::-webkit-scrollbar {
+      display: none
+    }
+
+    nav.toc a {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 24px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      border: 1px solid transparent;
+      transition: .15s
+    }
+
+    nav.toc a:hover {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--surface)
+    }
+
+    section {
+      margin-bottom: 64px;
+      scroll-margin-top: 60px
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 0 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    h2 .num {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--brand2);
+      background: #1e3a8a44;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid #3b82f655
+    }
+
+    h2+.lede {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0 0 28px
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 28px 0 12px;
+      color: var(--text)
+    }
+
+    h4 {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--brand2);
+      margin: 20px 0 8px;
+      text-transform: uppercase
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 16px
+    }
+
+    .card.tight {
+      padding: 18px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 16px
+    }
+
+    /* HERO STATS */
+    .heroStats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+      max-width: 920px
+    }
+
+    .heroStat {
+      background: linear-gradient(135deg, #152037, #0F172A);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .heroStat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(80px 80px at 80% 20%, var(--brand2)22, transparent);
+      pointer-events: none
+    }
+
+    .heroStat .lbl {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--muted)
+    }
+
+    .heroStat .val {
+      font-size: 30px;
+      font-weight: 900;
+      margin-top: 6px;
+      background: linear-gradient(135deg, #fff, #60A5FA);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .heroStat .sub {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 2px
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 13px
+    }
+
+    th,
+    td {
+      padding: 13px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top
+    }
+
+    th {
+      background: var(--surface2);
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--brand2)
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tr:hover td {
+      background: #152037aa
+    }
+
+    code {
+      background: #1E2A44;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-family: "SF Mono", "JetBrains Mono", Monaco, monospace;
+      color: #A5F3FC;
+      white-space: nowrap
+    }
+
+    pre {
+      background: #06101F;
+      color: #CBD5E1;
+      padding: 20px;
+      border-radius: 14px;
+      overflow-x: auto;
+      font-size: 12.5px;
+      line-height: 1.55;
+      border: 1px solid var(--border);
+      position: relative
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      white-space: pre;
+      font-size: 12.5px
+    }
+
+    pre .cmt {
+      color: #64748B;
+      font-style: italic
+    }
+
+    pre .k {
+      color: #60A5FA;
+      font-weight: 700
+    }
+
+    pre .s {
+      color: #86EFAC
+    }
+
+    pre .n {
+      color: #FBBF24
+    }
+
+    .copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1E2A44;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 1px
+    }
+
+    .copy:hover {
+      color: var(--text);
+      background: #2A3855
+    }
+
+    /* CHIPS */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1px
+    }
+
+    .chip-pass {
+      background: #10B98122;
+      color: #6EE7B7;
+      border: 1px solid #10B98144
+    }
+
+    .chip-fail {
+      background: #EF444422;
+      color: #FCA5A5;
+      border: 1px solid #EF444444
+    }
+
+    .chip-skip {
+      background: #64748B22;
+      color: #CBD5E1;
+      border: 1px solid #64748B44
+    }
+
+    .chip-todo {
+      background: #F59E0B22;
+      color: #FCD34D;
+      border: 1px solid #F59E0B44
+    }
+
+    .chip-citizen {
+      background: #3B82F622;
+      color: #60A5FA;
+      border: 1px solid #3B82F644
+    }
+
+    .chip-fire {
+      background: #EF444422;
+      color: #FCA5A5;
+      border: 1px solid #EF444444
+    }
+
+    .chip-amb {
+      background: #10B98122;
+      color: #6EE7B7;
+      border: 1px solid #10B98144
+    }
+
+    .chip-pol {
+      background: #8B5CF622;
+      color: #C4B5FD;
+      border: 1px solid #8B5CF644
+    }
+
+    .chip-admin {
+      background: #F59E0B22;
+      color: #FCD34D;
+      border: 1px solid #F59E0B44
+    }
+
+    .chip-auth {
+      background: #06B6D422;
+      color: #67E8F9;
+      border: 1px solid #06B6D444
+    }
+
+    .chip-lifecycle {
+      background: #A78BFA22;
+      color: #C4B5FD;
+      border: 1px solid #A78BFA44
+    }
+
+    /* TIMELINE STEPS */
+    .steps {
+      counter-reset: s;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 20px 0
+    }
+
+    .step {
+      counter-increment: s;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px 16px 56px;
+      position: relative
+    }
+
+    .step::before {
+      content: counter(s);
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .step h5 {
+      margin: 0 0 4px;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .step code {
+      font-size: 11px
+    }
+
+    /* METRICS CARDS */
+    .metricsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 18px 0
+    }
+
+    .metric {
+      background: linear-gradient(135deg, #152037, #0B1220);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .metric::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -20px auto;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, var(--brand2)22, transparent);
+      pointer-events: none
+    }
+
+    .metric .lbl {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: var(--muted);
+      text-transform: uppercase
+    }
+
+    .metric .val {
+      font-size: 32px;
+      font-weight: 900;
+      margin-top: 6px
+    }
+
+    .metric .sub {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 2px
+    }
+
+    .warn {
+      background: #F59E0B22;
+      border: 1px solid #F59E0B66;
+      color: #FCD34D;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      display: flex;
+      gap: 10px;
+      align-items: start
+    }
+
+    .warn::before {
+      content: "⚠";
+      font-size: 18px
+    }
+
+    .ok {
+      background: #10B98122;
+      border: 1px solid #10B98155;
+      color: #6EE7B7;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      display: flex;
+      gap: 10px;
+      align-items: start
+    }
+
+    .ok::before {
+      content: "✓";
+      font-size: 18px;
+      font-weight: 900
+    }
+
+    .err {
+      background: #EF444422;
+      border: 1px solid #EF444466;
+      color: #FCA5A5;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      display: flex;
+      gap: 10px;
+      align-items: start
+    }
+
+    .err::before {
+      content: "✗";
+      font-size: 18px;
+      font-weight: 900
+    }
+
+    /* STATUS BAR */
+    .statusBar {
+      display: flex;
+      gap: 4px;
+      margin: 4px 0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--bg2)
+    }
+
+    .statusBar .seg {
+      border-radius: 2px;
+      transition: .2s
+    }
+
+    .statusBar .seg.pass {
+      background: var(--success)
+    }
+
+    .statusBar .seg.fail {
+      background: var(--critical)
+    }
+
+    .statusBar .seg.skip {
+      background: var(--dim)
+    }
+
+    .warn::before {
+      content: "⚠";
+      font-size: 18px
+    }
+
+    ul.bullets {
+      padding-left: 22px;
+      margin: 8px 0
+    }
+
+    ul.bullets li {
+      margin-bottom: 6px;
+      font-size: 14px
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0
+    }
+
+    .roleHeader {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+      border: 1px solid var(--border)
+    }
+
+    .roleHeader .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px
+    }
+
+    .roleHeader.auth .icon {
+      background: #06B6D422;
+      color: #67E8F9
+    }
+
+    .roleHeader.citizen .icon {
+      background: #3B82F622;
+      color: #60A5FA
+    }
+
+    .roleHeader.fire .icon {
+      background: #EF444422;
+      color: #FCA5A5
+    }
+
+    .roleHeader.amb .icon {
+      background: #10B98122;
+      color: #6EE7B7
+    }
+
+    .roleHeader.pol .icon {
+      background: #8B5CF622;
+      color: #C4B5FD
+    }
+
+    .roleHeader.admin .icon {
+      background: #F59E0B22;
+      color: #FCD34D
+    }
+
+    .roleHeader.lifecycle .icon {
+      background: #A78BFA22;
+      color: #C4B5FD
+    }
+
+    .roleHeader h3 {
+      margin: 0;
+      font-size: 22px
+    }
+
+    .roleHeader p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--dim);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 64px
+    }
+
+    footer span {
+      color: var(--muted)
+    }
+
+    /* COLLAPSIBLE */
+    details.collapse {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0;
+      margin: 12px 0;
+      overflow: hidden
+    }
+
+    details.collapse summary {
+      padding: 14px 18px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--brand2);
+      user-select: none;
+      background: var(--surface2);
+      border-bottom: 1px solid transparent
+    }
+
+    details.collapse[open] summary {
+      border-bottom-color: var(--border)
+    }
+
+    details.collapse .body {
+      padding: 14px 18px
+    }
+
+    details.collapse pre {
+      margin: 8px 0
+    }
+
+    .fileTree {
+      font-family: "SF Mono", "JetBrains Mono", Monaco, monospace;
+      font-size: 12.5px;
+      line-height: 1.8;
+      padding: 14px 18px;
+      background: #06101F;
+      border-radius: 12px;
+      border: 1px solid var(--border)
+    }
+
+    .fileTree .dir {
+      color: var(--brand2)
+    }
+
+    .fileTree .file {
+      color: var(--text)
+    }
+
+    .fileTree .meta {
+      color: var(--dim);
+      font-size: 10.5px
+    }
+
+    .fileTree .indent {
+      padding-left: 24px
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="wrap" style="padding-bottom:0">
+      <span class="pill">TESTING REFERENCE · PLAYWRIGHT · E2E</span>
+      <h1>E2E Test Suite
+        <small>Playwright 1.61 · Chromium · Expo Web · FastAPI — Complete Testing Reference</small>
+      </h1>
+      <p>38 end-to-end tests across 5 spec files covering auth, citizen reporting, agency dispatch, admin panel, and
+        full incident lifecycle. Every selectors documented, every failure mode explained.</p>
+
+      <div class="heroStats">
+        <div class="heroStat">
+          <div class="lbl">TOTAL TESTS</div>
+          <div class="val">38</div>
+          <div class="sub">5 spec files</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">AUTH</div>
+          <div class="val">12</div>
+          <div class="sub">login, register, redirects, logout</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">CITIZEN</div>
+          <div class="val">9</div>
+          <div class="sub">reporting, SOS, safety tips</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">AGENCY</div>
+          <div class="val">12</div>
+          <div class="sub">dispatch dashboard, role filter</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">ADMIN</div>
+          <div class="val">3</div>
+          <div class="sub">db-admin, access control</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">LIFECYCLE</div>
+          <div class="val">2</div>
+          <div class="sub">submit → verify in my-reports</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">FRAMEWORK</div>
+          <div class="val">Playwright</div>
+          <div class="sub">1.61.0 · Chromium only</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="inner">
+      <a href="#overview">1 · Overview</a>
+      <a href="#setup">2 · Setup</a>
+      <a href="#files">3 · Test Files</a>
+      <a href="#auth">4 · Auth Tests</a>
+      <a href="#citizen">5 · Citizen Tests</a>
+      <a href="#agency">6 · Agency Tests</a>
+      <a href="#admin">7 · Admin Tests</a>
+      <a href="#lifecycle">8 · Lifecycle</a>
+      <a href="#selector">9 · Selector Strategy</a>
+      <a href="#issues">10 · Known Issues</a>
+      <a href="#run">11 · How to Run</a>
+      <a href="#config">12 · Configuration</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- ============================================================ -->
+    <section id="overview">
+      <h2><span class="num">01</span>Test Suite Overview</h2>
+      <p class="lede">Playwright E2E tests for the Urban Intel emergency response platform — covering every user role
+        from login through dispatch to incident resolution.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Architecture</h4>
+          <ul class="bullets">
+            <li><strong>Driver:</strong> Playwright 1.61.0, Chromium only</li>
+            <li><strong>Target:</strong> Expo web build at <code>http://localhost:8081</code></li>
+            <li><strong>Backend:</strong> FastAPI / uvicorn at <code>http://localhost:8001</code></li>
+            <li><strong>Parallelism:</strong> <code>fullyParallel: true</code> — each test gets its own browser context
+            </li>
+            <li><strong>Auto-start:</strong> <code>webServer</code> config boots both servers via Playwright</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Test Results Status</h4>
+          <p><span class="chip chip-fail">38 / 38 FAILING</span> (current)</p>
+          <p>Root cause identified: React Native Web renders <code>testID</code> as <code>data-testid</code>. All CSS
+            selectors use the wrong attribute name. Fix applied — pending re-run.</p>
+          <div class="statusBar">
+            <div class="seg fail" style="flex:38"></div>
+          </div>
+          <p style="margin:4px 0 0;font-size:11px;color:var(--dim)">0 pass · 38 fail · 0 skip</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="setup">
+      <h2><span class="num">02</span>Setup &amp; Configuration</h2>
+      <p class="lede">How the test suite was initialized and configured.</p>
+
+      <h3>Initialization</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># From project root</span>
+yarn create playwright<span style="color:#94A3B8">  # installed Playwright 1.61.0</span>
+npx playwright install chromium</code></pre>
+
+      <h3>Key Config Options</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Value</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>baseURL</code></td>
+            <td><code>http://localhost:8081</code></td>
+            <td>Expo web dev server</td>
+          </tr>
+          <tr>
+            <td><code>testMatch</code></td>
+            <td><code>e2e/**/*.spec.ts</code></td>
+            <td>Test file location</td>
+          </tr>
+          <tr>
+            <td><code>fullyParallel</code></td>
+            <td><code>true</code></td>
+            <td>Isolated contexts per test</td>
+          </tr>
+          <tr>
+            <td><code>retries</code></td>
+            <td><code>0</code></td>
+            <td>No retry (debug mode)</td>
+          </tr>
+          <tr>
+            <td><code>timeout</code></td>
+            <td><code>60000</code></td>
+            <td>60 s per test</td>
+          </tr>
+          <tr>
+            <td><code>expect.timeout</code></td>
+            <td><code>15000</code></td>
+            <td>15 s per assertion</td>
+          </tr>
+          <tr>
+            <td><code>reporter</code></td>
+            <td><code>["list", "html"]</code></td>
+            <td>Terminal + HTML report</td>
+          </tr>
+          <tr>
+            <td><code>workers</code></td>
+            <td><code>1</code></td>
+            <td>Serial (avoid server overload)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>webServer Auto-Start</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt">// playwright.config.ts</span>
+webServer: [
+  {
+    command: <span class="s">".venv\\Scripts\\python.exe -m uvicorn server:app --port 8001"</span>,
+    port: 8001,
+    cwd: <span class="s">".\\backend"</span>,
+    reuseExistingServer: true,
+    timeout: 60000,
+  },
+  {
+    command: <span class="s">"yarn web --port 8081"</span>,
+    port: 8081,
+    cwd: <span class="s">".\\frontend"</span>,
+    reuseExistingServer: true,
+    timeout: 120000,
+  },
+]</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="files">
+      <h2><span class="num">03</span>Test Files Structure</h2>
+      <p class="lede">Every spec file in the <code>e2e/</code> directory, with its test count and coverage.</p>
+
+      <div class="fileTree">
+        <span class="dir">e2e/</span><br />
+        <span class="indent"><span class="file">helpers.ts</span> <span class="meta">— login(), clearSession(), demo
+            credentials</span></span><br />
+        <span class="indent"><span class="file">auth.spec.ts</span> <span class="meta">— 12 tests · login page, register,
+            role redirects, logout, demo fill</span></span><br />
+        <span class="indent"><span class="file">citizen.spec.ts</span> <span class="meta">— 9 tests · home, report,
+            severity/service selection, my-reports, SOS, safety tips</span></span><br />
+        <span class="indent"><span class="file">agency.spec.ts</span> <span class="meta">— 12 tests · dashboard stats,
+            status filters, incident detail, role-based access (fire/medical/police)</span></span><br />
+        <span class="indent"><span class="file">admin.spec.ts</span> <span class="meta">— 3 tests · db-admin access, back
+            nav, non-admin denied</span></span><br />
+        <span class="indent"><span class="file">incident-lifecycle.spec.ts</span> <span class="meta">— 2 tests · submit
+            report, verify in my-reports</span></span><br />
+        <span class="indent"><span class="file">start-servers.ps1</span> <span class="meta">— convenience script for
+            manual startup</span></span>
+      </div>
+
+      <h3>Helper Module</h3>
+      <p><code>e2e/helpers.ts</code> provides shared utilities used by all spec files:</p>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="k">export</span> <span class="k">const</span> DEMO_CREDENTIALS = {
+  citizen: { email: <span class="s">"citizen@urbanintel.app"</span>, password: <span class="s">"Citizen@123"</span> },
+  admin:   { email: <span class="s">"admin@urbanintel.app"</span>,   password: <span class="s">"Admin@123"</span> },
+  fire:    { email: <span class="s">"fire@urbanintel.app"</span>,    password: <span class="s">"Fire@123"</span> },
+  medical: { email: <span class="s">"medical@urbanintel.app"</span>, password: <span class="s">"Medical@123"</span> },
+  police:  { email: <span class="s">"police@urbanintel.app"</span>,  password: <span class="s">"Police@123"</span> },
+};
+
+<span class="k">export async function</span> login(page, email, password) {
+  <span class="k">await</span> page.goto(<span class="s">"/auth/login"</span>, { waitUntil: <span class="s">"networkidle"</span> });
+  <span class="k">await</span> page.waitForSelector(<span class="s">'[data-testid="login-email"]'</span>);
+  <span class="k">await</span> page.fill(<span class="s">'[data-testid="login-email"]'</span>, email);
+  <span class="k">await</span> page.fill(<span class="s">'[data-testid="login-password"]'</span>, password);
+  <span class="k">await</span> page.click(<span class="s">'[data-testid="login-submit"]'</span>);
+}
+
+<span class="k">export async function</span> clearSession(page) {
+  <span class="k">await</span> page.goto(<span class="s">"/auth/login"</span>, { waitUntil: <span class="s">"domcontentloaded"</span> });
+  <span class="cmt">// Must be on same-origin before clearing localStorage</span>
+  <span class="k">await</span> page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
+  <span class="k">await</span> page.context().clearCookies();
+}</code></pre>
+
+      <div class="ok">
+        <code>clearSession()</code> navigates to <code>/auth/login</code> <em>before</em> touching
+        <code>localStorage</code>. This avoids the <code>SecurityError: localStorage is not available for opaque
+          origins</code> that occurs on <code>about:blank</code>.
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="auth">
+      <h2><span class="num">04</span>Auth Tests <span class="chip chip-auth">12 TESTS</span></h2>
+      <p class="lede">File: <code>e2e/auth.spec.ts</code> — Covers the entire authentication flow.</p>
+
+      <h3>Test Descriptions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Test Name</th>
+            <th>What It Verifies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>login page renders correctly</code></td>
+            <td>Login form has email, password inputs, submit button, "Create account" link, logo</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>register page renders correctly</code></td>
+            <td>Register form has all 5 inputs, 3 role radio buttons, submit, login link</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>login as citizen redirects to citizen home</code></td>
+            <td>Citizen login → URL <code>/home</code>, see citizen dashboard</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>login as admin redirects to admin dashboard</code></td>
+            <td>Admin login → URL <code>/dashboard</code>, see admin panel header</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><code>login as fire redirects to agency dashboard</code></td>
+            <td>Fire login → URL <code>/dashboard</code>, see fire dispatch header</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><code>login as medical redirects to agency dashboard</code></td>
+            <td>Medical login → URL <code>/dashboard</code>, see ambulance dispatch header</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><code>login as police redirects to agency dashboard</code></td>
+            <td>Police login → URL <code>/dashboard</code>, see police dispatch header</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><code>invalid login shows error</code></td>
+            <td>Wrong credentials → error message visible, still on login page</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><code>navigation — login to register and back</code></td>
+            <td>"Create account" link navigates to register, "Sign in" link navigates back</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><code>demo credentials fill correctly</code></td>
+            <td>Tap citizen demo chip → email + password auto-filled, submit works</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td><code>logout clears session</code></td>
+            <td>Logged-in user taps logout → redirected to login page, can't access home directly</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td><code>auth guard — protected routes redirect to login</code></td>
+            <td>Unauthenticated user tries <code>/home</code> → redirected to <code>/auth/login</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Used Selectors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>[data-testid="login-email"]</code></td>
+            <td>Login email input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="login-password"]</code></td>
+            <td>Login password input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="login-submit"]</code></td>
+            <td>Login submit button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="reg-name"]</code></td>
+            <td>Register name input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="reg-email"]</code></td>
+            <td>Register email input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="reg-phone"]</code></td>
+            <td>Register phone input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="reg-password"]</code></td>
+            <td>Register password input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="reg-submit"]</code></td>
+            <td>Register submit button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="role-citizen"]</code></td>
+            <td>Citizen role radio</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="role-agency"]</code></td>
+            <td>Agency role radio</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="role-admin"]</code></td>
+            <td>Admin role radio</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="goto-login"]</code></td>
+            <td>"Sign in" link on register page</td>
+          </tr>
+          <tr>
+            <td><code>text=Create account</code></td>
+            <td>Register page heading / button</td>
+          </tr>
+          <tr>
+            <td><code>text=URBAN INTEL</code></td>
+            <td>Logo / brand text</td>
+          </tr>
+          <tr>
+            <td><code>text=Emergency Response Platform</code></td>
+            <td>Login page subtitle</td>
+          </tr>
+          <tr>
+            <td><code>text=Sign in</code></td>
+            <td>Login page heading</td>
+          </tr>
+          <tr>
+            <td><code>text=citizen</code></td>
+            <td>Citizen demo chip</td>
+          </tr>
+          <tr>
+            <td><code>text=Logout</code></td>
+            <td>Logout button</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="citizen">
+      <h2><span class="num">05</span>Citizen Tests <span class="chip chip-citizen">9 TESTS</span></h2>
+      <p class="lede">File: <code>e2e/citizen.spec.ts</code> — Covers citizen reporting and dashboard flows.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Test Name</th>
+            <th>What It Verifies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>home screen renders with SOS and report button</code></td>
+            <td>SOS pulse button visible, "Report Incident" CTA, welcome text</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>report page has all required fields</code></td>
+            <td>Image picker, description field, severity selector, service checkboxes, AI triage button, submit</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>back navigation from report to home</code></td>
+            <td>Back button on report page navigates to <code>/home</code></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>severity selector works</code></td>
+            <td>Tap Low / Medium / High → correct pill highlighted</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><code>service selection toggles</code></td>
+            <td>Tap Fire → checkbox toggled; tap Ambulance → toggled; Police toggles</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><code>my reports screen shows list</code></td>
+            <td>"My Reports" screen renders with list or empty state</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><code>back nav from my reports</code></td>
+            <td>Back button on my reports navigates to <code>/home</code></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><code>SOS alert flow</code></td>
+            <td>Long-press or tap SOS → confirmation dialog → submit with High severity</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><code>safety tips section loads</code></td>
+            <td>Safety tips card/accordion has tips visible</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Selectors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>[data-testid="sos-button"]</code></td>
+            <td>SOS pulse trigger</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="report-incident-cta"]</code></td>
+            <td>"Report Incident" button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="report-image-picker"]</code></td>
+            <td>Image picker area</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="report-description"]</code></td>
+            <td>Incident description input</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="severity-low"]</code> / <code>-medium</code> / <code>-high</code></td>
+            <td>Severity radio pills</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid^="service-"]</code></td>
+            <td>Service checkboxes (Fire, Ambulance, Police)</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="run-ai-triage"]</code></td>
+            <td>AI triage trigger button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="submit-report"]</code></td>
+            <td>Final submit button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="my-reports-link"]</code></td>
+            <td>Link to my reports</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="report-back"]</code></td>
+            <td>Back button on report page</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="sos-confirm"]</code></td>
+            <td>SOS confirmation dialog</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="safety-tips"]</code></td>
+            <td>Safety tips section</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="agency">
+      <h2><span class="num">06</span>Agency Dispatch Tests <span class="chip chip-fire">12 TESTS</span></h2>
+      <p class="lede">File: <code>e2e/agency.spec.ts</code> — Tests for Fire, Ambulance, and Police dispatch consoles.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Test Name</th>
+            <th>Role</th>
+            <th>What It Verifies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>dashboard shows correct stats</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Stats cards visible: new count, acknowledged, en-route, on-scene, resolved</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>status filter tabs work</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Tap each status filter tab → list filters correctly</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>incident detail modal shows full info</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Tap incident row → modal with description, image, AI block, status timeline, live track</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>status transition on detail modal</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Advance Acknowledged → En Route → On Scene → Resolved</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><code>analytics section renders</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Charts, severity breakdown, response time metrics</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><code>incomplete report indicator</code></td>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>Reports without photos show "No image" placeholder</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><code>dashboard shows correct stats for medical</code></td>
+            <td><span class="chip chip-amb">Medical</span></td>
+            <td>Login as medical → correct dash header, stats visible</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><code>medical sees only ambulance incidents</code></td>
+            <td><span class="chip chip-amb">Medical</span></td>
+            <td>Incident list filtered to <code>recommended_services ∋ Ambulance</code></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><code>medical status transition</code></td>
+            <td><span class="chip chip-amb">Medical</span></td>
+            <td>Advance incident status on medical dispatch</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><code>dashboard shows correct stats for police</code></td>
+            <td><span class="chip chip-pol">Police</span></td>
+            <td>Login as police → correct dash header, stats visible</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td><code>police sees only police incidents</code></td>
+            <td><span class="chip chip-pol">Police</span></td>
+            <td>Incident list filtered to <code>recommended_services ∋ Police</code></td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td><code>police status transition</code></td>
+            <td><span class="chip chip-pol">Police</span></td>
+            <td>Advance incident status on police dispatch</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Selectors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>[data-testid="dash-header"]</code></td>
+            <td>Dashboard header with role badge</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="stat-new"]</code> / <code>-acknowledged</code> / <code>-enroute</code> / <code>-onscene</code> / <code>-resolved</code></td>
+            <td>Stats cards</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="filter-tab"]</code></td>
+            <td>Status filter tabs</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid^="inc-"]</code></td>
+            <td>Incident row items</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="incident-detail-modal"]</code></td>
+            <td>Incident detail modal</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="status-timeline"]</code></td>
+            <td>Status progress steps</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="advance-status"]</code></td>
+            <td>Advance status button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="incident-description"]</code></td>
+            <td>Incident description in modal</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="ai-block"]</code></td>
+            <td>AI analysis block in detail</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="live-track"]</code></td>
+            <td>Live GPS tracking panel</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="analytics-section"]</code></td>
+            <td>Analytics / charts area</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="no-image"]</code></td>
+            <td>Placeholder for missing photo</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="admin">
+      <h2><span class="num">07</span>Admin Tests <span class="chip chip-admin">3 TESTS</span></h2>
+      <p class="lede">File: <code>e2e/admin.spec.ts</code> — Database admin panel tests.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Test Name</th>
+            <th>What It Verifies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>admin can access db-admin</code></td>
+            <td>Admin login → navigate to <code>/db-admin</code> → tables/collections list visible</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>back navigation from db-admin</code></td>
+            <td>Back button on db-admin → returns to dashboard</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>non-admin cannot access db-admin</code></td>
+            <td>Citizen login → navigate to <code>/db-admin</code> → access denied or redirected</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Selectors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>[data-testid="db-admin-header"]</code></td>
+            <td>DB admin page header</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="collection-list"]</code></td>
+            <td>List of database collections</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="admin-back"]</code></td>
+            <td>Back button on db-admin</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="access-denied"]</code></td>
+            <td>Access denied message</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="lifecycle">
+      <h2><span class="num">08</span>Incident Lifecycle Tests <span class="chip chip-lifecycle">2 TESTS</span></h2>
+      <p class="lede">File: <code>e2e/incident-lifecycle.spec.ts</code> — Full submit-to-verify flow.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Test Name</th>
+            <th>What It Verifies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>submit report without photo</code></td>
+            <td>Login as citizen → fill description + severity + services → submit → redirected to incident detail page
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>submitted report appears in my-reports</code></td>
+            <td>After submission → navigate to my-reports → latest entry matches submitted data</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Selectors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Selector</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>[data-testid="report-description"]</code></td>
+            <td>Incident description field</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="submit-report"]</code></td>
+            <td>Submit button</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="incident-title"]</code></td>
+            <td>Incident title on detail page</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="my-reports-list"]</code></td>
+            <td>Reports list on my-reports page</td>
+          </tr>
+          <tr>
+            <td><code>[data-testid="report-card"]</code></td>
+            <td>Individual report card in list</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="selector">
+      <h2><span class="num">09</span>Selector Strategy: <code>testID</code> → <code>data-testid</code></h2>
+      <p class="lede">The single most important debugging finding — why all 38 tests fail and how it was fixed.</p>
+
+      <div class="err">
+        <strong>Root cause:</strong> All tests use <code>[testID="..."]</code> CSS selectors, but React Native Web
+        renders the <code>testID</code> prop as <code>data-testid</code> in the DOM. The selectors never match any
+        element, causing every assertion to fail with <code>locator('[testID="..."]') not found</code>.
+      </div>
+
+      <h3>How React Native Web Handles testID</h3>
+      <p>Located in <code>react-native-web/dist/modules/createDOMProps/index.js</code>:</p>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt">// line 151 — destructured from props</span>
+testID = _props.testID;
+
+<span class="cmt">// line 835-836 — written as data-testid in DOM</span>
+<span class="k">if</span> (testID != <span class="k">null</span>) {
+  domProps[<span class="s">'data-testid'</span>] = testID;
+}</code></pre>
+
+      <p>This means following JSX:</p>
+      <pre><code>&lt;TextInput testID=<span class="s">"login-email"</span> /&gt;</code></pre>
+      <p>Renders to HTML:</p>
+      <pre><code>&lt;input <span class="k">data-testid</span>=<span class="s">"login-email"</span> ... /&gt;</code></pre>
+      <p>NOT:</p>
+      <pre><code>&lt;input <span class="k">testID</span>=<span class="s">"login-email"</span> ... /&gt;  <span class="cmt">// ✗ never happens</span></code></pre>
+
+      <h3>Fix Applied</h3>
+      <p>All 5 spec files + helpers.ts were updated using a bulk replacement:</p>
+      <pre><code><span class="cmt"># Before</span>
+page.waitForSelector('<span class="k">[testID=</span><span class="s">"login-email"</span>]');
+page.locator('<span class="k">[testID=</span><span class="s">"login-email"</span>]');
+page.locator('<span class="k">[testID^=</span><span class="s">"inc-"</span>]');
+
+<span class="cmt"># After</span>
+page.waitForSelector('<span class="k">[data-testid=</span><span class="s">"login-email"</span>]');
+page.locator('<span class="k">[data-testid=</span><span class="s">"login-email"</span>]');
+page.locator('<span class="k">[data-testid^=</span><span class="s">"inc-"</span>]');</code></pre>
+
+      <div class="ok">
+        Playwright's built-in <code>page.getByTestId("login-email")</code> also works since it matches
+        <code>data-testid</code> by default. The CSS <code>[data-testid="..."]</code> approach was chosen for
+        consistency with existing code style.
+      </div>
+
+      <details class="collapse">
+        <summary>Full list of all data-testid attributes in the test suite</summary>
+        <div class="body">
+          <div class="grid" style="font-size:12px;font-family:monospace">
+            <div>login-email</div>
+            <div>login-password</div>
+            <div>login-submit</div>
+            <div>reg-name</div>
+            <div>reg-email</div>
+            <div>reg-phone</div>
+            <div>reg-password</div>
+            <div>reg-submit</div>
+            <div>role-citizen</div>
+            <div>role-agency</div>
+            <div>role-admin</div>
+            <div>goto-login</div>
+            <div>sos-button</div>
+            <div>report-incident-cta</div>
+            <div>report-image-picker</div>
+            <div>report-description</div>
+            <div>severity-low</div>
+            <div>severity-medium</div>
+            <div>severity-high</div>
+            <div>service-*</div>
+            <div>run-ai-triage</div>
+            <div>submit-report</div>
+            <div>my-reports-link</div>
+            <div>report-back</div>
+            <div>sos-confirm</div>
+            <div>safety-tips</div>
+            <div>dash-header</div>
+            <div>stat-new</div>
+            <div>stat-acknowledged</div>
+            <div>stat-enroute</div>
+            <div>stat-onscene</div>
+            <div>stat-resolved</div>
+            <div>filter-tab</div>
+            <div>inc-*</div>
+            <div>incident-detail-modal</div>
+            <div>status-timeline</div>
+            <div>advance-status</div>
+            <div>incident-description</div>
+            <div>ai-block</div>
+            <div>live-track</div>
+            <div>analytics-section</div>
+            <div>no-image</div>
+            <div>db-admin-header</div>
+            <div>collection-list</div>
+            <div>admin-back</div>
+            <div>access-denied</div>
+            <div>incident-title</div>
+            <div>my-reports-list</div>
+            <div>report-card</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="issues">
+      <h2><span class="num">10</span>Known Issues &amp; Fixes</h2>
+      <p class="lede">Every failure encountered during test development, with resolution.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Issue</th>
+            <th>Error</th>
+            <th>Root Cause</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>testID</code> selector mismatch</td>
+            <td><code>locator('[testID="..."]') not found</code></td>
+            <td>React Native Web renders <code>testID</code> as <code>data-testid</code></td>
+            <td>Replace all <code>[testID=</code> → <code>[data-testid=</code></td>
+          </tr>
+          <tr>
+            <td><code>clearSession</code> SecurityError</td>
+            <td><code>SecurityError: localStorage is not available for opaque origins</code></td>
+            <td><code>page.goto("about:blank")</code> creates a cross-origin context where
+              <code>localStorage</code> is inaccessible</td>
+            <td>Navigate to <code>/auth/login</code> first (same origin) before calling
+              <code>localStorage.clear()</code></td>
+          </tr>
+          <tr>
+            <td><code>waitForURL</code> regex mismatch</td>
+            <td><code>Timeout: page.waitForURL</code></td>
+            <td>Regex patterns like <code>/\/(citizen)\/home/</code> don't match when Expo Router collapses route groups
+              in URL</td>
+            <td>Use simpler <code>/\/home$/</code>, <code>/\/dashboard$/</code> patterns</td>
+          </tr>
+          <tr>
+            <td><code>text=Create account</code> strict mode</td>
+            <td><code>strict mode violation: resolved to 2 elements</code></td>
+            <td>Both the page heading <em>and</em> the submit button contain "Create account" text</td>
+            <td>Use <code>text=Create account &gt;&gt; visible=true</code> or a more specific selector (pending)</td>
+          </tr>
+          <tr>
+            <td>Server not reachable</td>
+            <td><code>net::ERR_CONNECTION_REFUSED</code></td>
+            <td><code>webServer</code> command path is relative and may fail on Windows if not run from correct
+              <code>cwd</code></td>
+            <td>Verify <code>cwd</code> paths in config; use <code>reuseExistingServer: true</code> with
+              pre-started servers</td>
+          </tr>
+          <tr>
+            <td><code>page.goto</code> wrong path</td>
+            <td>404 / wrong page</td>
+            <td><code>incident-lifecycle.spec.ts</code> used <code>/report</code> instead of <code>/home</code> for
+              citizen home</td>
+            <td>Fixed paths to match Expo Router file conventions</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Permanent countermeasures</h3>
+      <div class="grid">
+        <div class="card tight">
+          <h4><span class="chip chip-pass">DONE</span> <code>clearSession</code></h4>
+          <p style="font-size:12px">Always navigates to same-origin page before touching storage. This is now enforced
+            by the shared helper.</p>
+        </div>
+        <div class="card tight">
+          <h4><span class="chip chip-pass">DONE</span> Selector strategy</h4>
+          <p style="font-size:12px">All future e2e selectors must use <code>[data-testid="..."]</code> or
+            <code>page.getByTestId()</code>, never <code>[testID="..."]</code>.</p>
+        </div>
+        <div class="card tight">
+          <h4><span class="chip chip-todo">TODO</span> "Create account" selector</h4>
+          <p style="font-size:12px">Needs disambiguation — likely <code>h2:has-text("Create account")</code> for heading
+            and <code>button:has-text("Create account")</code> for button.</p>
+        </div>
+        <div class="card tight">
+          <h4><span class="chip chip-todo">TODO</span> webServer on Windows</h4>
+          <p style="font-size:12px">May need absolute <code>cwd</code> paths or fall back to <code>start-servers.ps1</code>
+            for manual boot on Windows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="run">
+      <h2><span class="num">11</span>How to Run the Tests</h2>
+      <p class="lede">Two methods — manual server start or Playwright auto-start.</p>
+
+      <h3>Method 1 — Auto-start (recommended)</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># From project root — Playwright boots both servers automatically</span>
+npx playwright test --reporter=list
+
+<span class="cmt"># Run a single spec file</span>
+npx playwright test e2e/auth.spec.ts --reporter=list
+
+<span class="cmt"># Run with HTML report (auto-opens)</span>
+npx playwright test
+npx playwright show-report</code></pre>
+
+      <h3>Method 2 — Manual start</h3>
+      <div class="steps">
+        <div class="step">
+          <h5>Start backend</h5>
+          <p>In Terminal 1: <code>cd backend; .venv\Scripts\Activate.ps1; uvicorn server:app --port 8001 --reload</code></p>
+        </div>
+        <div class="step">
+          <h5>Start frontend</h5>
+          <p>In Terminal 2: <code>cd frontend; yarn web --port 8081</code></p>
+        </div>
+        <div class="step">
+          <h5>Run tests</h5>
+          <p>Wait for both to be ready, then in Terminal 3: <code>npx playwright test</code></p>
+        </div>
+      </div>
+
+      <h3>Using the convenience script</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># Start both servers</span>
+.\e2e\start-servers.ps1 -Start
+
+<span class="cmt"># In another terminal, run tests</span>
+npx playwright test
+
+<span class="cmt"># Stop both servers</span>
+.\e2e\start-servers.ps1 -Stop</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="config">
+      <h2><span class="num">12</span>Full Playwright Configuration</h2>
+      <p class="lede">The complete <code>playwright.config.ts</code> for reference.</p>
+
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="k">import</span> { defineConfig } from <span class="s">"@playwright/test"</span>;
+
+export <span class="k">default</span> defineConfig({
+  testDir: <span class="s">"."</span>,
+  testMatch: <span class="s">"e2e/**/*.spec.ts"</span>,
+  fullyParallel: <span class="k">true</span>,
+  retries: 0,
+  workers: 1,
+  timeout: 60_000,
+  expect: { timeout: 15_000 },
+
+  use: {
+    baseURL: <span class="s">"http://localhost:8081"</span>,
+    actionTimeout: 20_000,
+    navigationTimeout: 20_000,
+    trace: <span class="s">"on-first-retry"</span>,
+    screenshot: <span class="s">"only-on-failure"</span>,
+  },
+
+  projects: [
+    {
+      name: <span class="s">"chromium"</span>,
+      use: { browserName: <span class="s">"chromium"</span> },
+    },
+  ],
+
+  webServer: [
+    {
+      command: <span class="s">".venv\\Scripts\\python.exe -m uvicorn server:app --port 8001"</span>,
+      port: 8001,
+      cwd: <span class="s">".\\backend"</span>,
+      reuseExistingServer: <span class="k">true</span>,
+      timeout: 60_000,
+    },
+    {
+      command: <span class="s">"yarn web --port 8081"</span>,
+      port: 8081,
+      cwd: <span class="s">".\\frontend"</span>,
+      reuseExistingServer: <span class="k">true</span>,
+      timeout: 120_000,
+    },
+  ],
+
+  reporter: [
+    [<span class="s">"list"</span>],
+    [<span class="s">"html"</span>, { open: <span class="s">"never"</span> }],
+  ],
+});</code></pre>
+    </section>
+
+  </div>
+
+  <footer>
+    Urban Intel — E2E Test Suite Reference &mdash; Playwright 1.61.0 &middot; Chromium &middot; 38 tests &middot;
+    <span>Last updated June 2026</span>
+  </footer>
+
+  <script>
+    document.querySelectorAll(".copy").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var code = this.nextElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(function() {
+          var t = this.textContent;
+          this.textContent = "Copied!";
+          var s = this;
+          setTimeout(function() { s.textContent = t; }, 1500);
+        }.bind(this));
+      });
+    });
+  </script>
+</body>
+
+</html>

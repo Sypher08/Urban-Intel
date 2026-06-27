@@ -1,0 +1,124 @@
+{
+  "theme": {
+    "mode": "light",
+    "archetype": "Archetype 4: Swiss & High-Contrast",
+    "description": "An authoritative, clean, and function-first design language prioritizing clarity during emergencies. High contrast text, minimal decorative elements, and strict color-coding for severity."
+  },
+  "colors": {
+    "background": {
+      "default": "#F8F9FA",
+      "surface": "#FFFFFF",
+      "surfaceHover": "#F1F5F9",
+      "inverse": "#0F172A"
+    },
+    "text": {
+      "primary": "#111827",
+      "secondary": "#475569",
+      "inverse": "#F8FAFC"
+    },
+    "brand": {
+      "primary": "#1E293B",
+      "primaryHover": "#334155"
+    },
+    "severity": {
+      "critical": "#EF4444",
+      "criticalLight": "#FEE2E2",
+      "warning": "#F59E0B",
+      "warningLight": "#FEF3C7",
+      "info": "#3B82F6",
+      "infoLight": "#DBEAFE",
+      "success": "#10B981",
+      "successLight": "#D1FAE5"
+    },
+    "borders": "#E2E8F0"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Work Sans, sans-serif",
+      "body": "IBM Plex Sans, sans-serif",
+      "mono": "IBM Plex Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl sm:text-5xl font-black tracking-tight leading-none",
+      "h2": "text-2xl sm:text-3xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "h4": "text-lg font-semibold",
+      "body": "text-base leading-relaxed text-gray-700",
+      "small": "text-sm text-gray-500",
+      "label": "text-xs font-bold uppercase tracking-[0.2em] text-gray-500"
+    }
+  },
+  "layout_and_spacing": {
+    "mobile_container": "max-w-md mx-auto h-screen relative bg-gray-50 shadow-2xl flex flex-col overflow-hidden (PWA/Mobile pattern)",
+    "dashboard_container": "w-full min-h-screen bg-gray-50 flex",
+    "spacing_scale": "Use generous padding: p-4, p-6 for cards. Gap-4 for mobile grids, gap-6 for dashboard bento grids.",
+    "border_radius": "rounded-2xl for main cards, rounded-full for action buttons, rounded-none for full-bleed maps."
+  },
+  "components": {
+    "sos_button": {
+      "style": "Massive rounded-full button (e.g., h-40 w-40), centered, bg-red-500 text-white shadow-[0_0_40px_rgba(239,68,68,0.4)]. Should have a subtle pulse animation on ring.",
+      "usage": "Citizen home screen primary action."
+    },
+    "bento_cards": {
+      "style": "bg-white border border-gray-200 rounded-2xl shadow-sm p-6 hover:shadow-md transition-shadow.",
+      "usage": "Dashboard metrics and mobile main menu items."
+    },
+    "status_badge": {
+      "style": "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1",
+      "variants": "Critical -> bg-red-100 text-red-700; Warning -> bg-amber-100 text-amber-700; Safe -> bg-green-100 text-green-700"
+    },
+    "bottom_nav": {
+      "style": "absolute bottom-0 w-full bg-white border-t border-gray-200 pb-safe pt-2 px-6 flex justify-between items-center z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]",
+      "usage": "Mobile navigation"
+    },
+    "inputs": {
+      "style": "bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:border-transparent outline-none transition-all",
+      "usage": "Auth and report incident forms"
+    }
+  },
+  "motion_and_interactions": {
+    "hover": "Subtle -translate-y-0.5 and shadow-md for interactive cards.",
+    "active": "Scale-95 on buttons to give tactile feedback.",
+    "pulse": "Use framer-motion or tailwind animate-pulse for the SOS button ring.",
+    "page_transitions": "Slide up for modals (Incident Report), fade for tab switches."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "guidelines": "Use stroke-width 2 or 2.5 for a solid, legible feel. Size 24px for nav, 32px+ for bento cards."
+  },
+  "media": {
+    "images": {
+      "auth_background": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/6592d24f-f524-4766-9fc7-0dc8c2efde10/images/bfd19691985c6273aaa7d5c196e4c2b81082c9b5c3cb62dbea7886881de726c5.png",
+        "description": "Atmospheric, cinematic blurred night city scape with emergency lights. Use as full bleed background on Login/Register with a heavy dark gradient overlay (bg-black/60) to ensure text legibility."
+      },
+      "brand_logo": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/6592d24f-f524-4766-9fc7-0dc8c2efde10/images/978f0437b3931d66b362498168f8bfd61206abee8f3d905d621c25267fdd6bf9.png",
+        "description": "Urban Intel minimalist shield/map pin logo. Use in headers, splash screen, and auth forms."
+      },
+      "dashboard_map": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/6592d24f-f524-4766-9fc7-0dc8c2efde10/images/c1169097bcd1b5a971a4451a5fb048598a54ba9562d4e2e9426facb11ab522ab.png",
+        "description": "High-contrast dark map texture with glowing spots. Use as the massive map background in the Admin Dashboard view. Overlay UI cards on top of it."
+      },
+      "avatar_placeholder": {
+        "url": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMGF2YXRhcnxlbnwwfHx8fDE3ODAwNzQ4MTV8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Professional headshot for the user profile section."
+      },
+      "incident_photo_dummy": {
+        "url": "https://images.unsplash.com/photo-1764239651498-76eed8148fc0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxmaXJlJTIwYWNjaWRlbnQlMjBidWlsZGluZ3xlbnwwfHx8fDE3ODAwNzQ4MTV8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Dummy image for incident reports (Building engulfed in flames)."
+      }
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build the application as a responsive web app. For the 'Mobile Citizen' views, simulate a mobile experience by constraining the main container (e.g., 'max-w-md mx-auto h-screen shadow-2xl relative') so it looks like a phone UI on desktop, or fills the screen on mobile devices.",
+    "For the 'Admin Dashboard' view, use a full-width desktop layout (grid-cols-12).",
+    "Use standard Shadcn components for forms, tabs, and tables, but strip away excess borders to match the 'Swiss & High-Contrast' clean look.",
+    "The Home screen must feature the SOS button prominently at the top/center, followed by a 'Bento Grid' for other actions (Report, History, Profile).",
+    "Implement the 'Report Incident' flow as a multi-step modal or stacked views with progressive disclosure.",
+    "Ensure all severity statuses (Low, Medium, High) use the exact color hexes defined in this guideline.",
+    "Use pure white cards on an off-white (#F8F9FA) background to establish depth without relying on heavy shadows.",
+    "Implement bottom navigation for the mobile citizen view.",
+    "All interactive elements MUST include 'data-testid' attributes for testing."
+  ]
+}

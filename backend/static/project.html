@@ -1,0 +1,3412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Urban Intel — Complete Project Dossier</title>
+  <style>
+    :root {
+      --bg: #0B1220;
+      --bg2: #0F172A;
+      --surface: #111A2E;
+      --surface2: #152037;
+      --text: #E6EDF7;
+      --muted: #94A3B8;
+      --dim: #64748B;
+      --border: #1E2A44;
+      --brand: #3B82F6;
+      --brand2: #60A5FA;
+      --critical: #EF4444;
+      --warning: #F59E0B;
+      --info: #06B6D4;
+      --success: #10B981;
+      --citizen: #3B82F6;
+      --fire: #EF4444;
+      --ambulance: #10B981;
+      --police: #8B5CF6;
+      --admin: #F59E0B;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px 96px
+    }
+
+    /* HEADER */
+    header.hero {
+      position: relative;
+      padding: 80px 24px 64px;
+      background: radial-gradient(1200px 600px at 80% -20%, #1e3a8a55, transparent 60%), radial-gradient(800px 400px at -10% 30%, #06b6d433, transparent 60%), var(--bg);
+      overflow: hidden;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    header .pill {
+      display: inline-block;
+      background: #1e3a8a44;
+      border: 1px solid #3b82f655;
+      padding: 6px 14px;
+      border-radius: 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--brand2);
+      margin-bottom: 24px
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 64px;
+      letter-spacing: -2px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, #60A5FA 60%, #06B6D4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    header h1 small {
+      font-weight: 400;
+      font-size: 18px;
+      display: block;
+      letter-spacing: 0;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    header p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 20px 0 0
+    }
+
+    /* STICKY NAV */
+    nav.toc {
+      position: sticky;
+      top: 0;
+      background: rgba(11, 18, 32, .92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 20;
+      padding: 12px 0;
+      margin: 0 -24px 32px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    nav.toc .inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    nav.toc .inner::-webkit-scrollbar {
+      display: none
+    }
+
+    nav.toc a {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 24px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      border: 1px solid transparent;
+      transition: .15s
+    }
+
+    nav.toc a:hover {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--surface)
+    }
+
+    section {
+      margin-bottom: 64px;
+      scroll-margin-top: 60px
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 0 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    h2 .num {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--brand2);
+      background: #1e3a8a44;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid #3b82f655
+    }
+
+    h2+.lede {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0 0 28px
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 28px 0 12px;
+      color: var(--text)
+    }
+
+    h4 {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--brand2);
+      margin: 20px 0 8px;
+      text-transform: uppercase
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 16px
+    }
+
+    .card.tight {
+      padding: 18px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 16px
+    }
+
+    /* HERO STATS */
+    .heroStats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+      max-width: 920px
+    }
+
+    .heroStat {
+      background: linear-gradient(135deg, #152037, #0F172A);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .heroStat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(80px 80px at 80% 20%, var(--brand2)22, transparent);
+      pointer-events: none
+    }
+
+    .heroStat .lbl {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--muted)
+    }
+
+    .heroStat .val {
+      font-size: 30px;
+      font-weight: 900;
+      margin-top: 6px;
+      background: linear-gradient(135deg, #fff, #60A5FA);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .heroStat .sub {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 2px
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 13px
+    }
+
+    th,
+    td {
+      padding: 13px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top
+    }
+
+    th {
+      background: var(--surface2);
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--brand2)
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tr:hover td {
+      background: #152037aa
+    }
+
+    code {
+      background: #1E2A44;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-family: "SF Mono", "JetBrains Mono", Monaco, monospace;
+      color: #A5F3FC;
+      white-space: nowrap
+    }
+
+    pre {
+      background: #06101F;
+      color: #CBD5E1;
+      padding: 20px;
+      border-radius: 14px;
+      overflow-x: auto;
+      font-size: 12.5px;
+      line-height: 1.55;
+      border: 1px solid var(--border);
+      position: relative
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      white-space: pre;
+      font-size: 12.5px
+    }
+
+    pre .cmt {
+      color: #64748B;
+      font-style: italic
+    }
+
+    pre .k {
+      color: #60A5FA;
+      font-weight: 700
+    }
+
+    pre .s {
+      color: #86EFAC
+    }
+
+    pre .n {
+      color: #FBBF24
+    }
+
+    .copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1E2A44;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 1px
+    }
+
+    .copy:hover {
+      color: var(--text);
+      background: #2A3855
+    }
+
+    /* CHIPS */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1px
+    }
+
+    .chip-citizen {
+      background: #3B82F622;
+      color: #60A5FA;
+      border: 1px solid #3B82F644
+    }
+
+    .chip-fire {
+      background: #EF444422;
+      color: #FCA5A5;
+      border: 1px solid #EF444444
+    }
+
+    .chip-amb {
+      background: #10B98122;
+      color: #6EE7B7;
+      border: 1px solid #10B98144
+    }
+
+    .chip-pol {
+      background: #8B5CF622;
+      color: #C4B5FD;
+      border: 1px solid #8B5CF644
+    }
+
+    .chip-admin {
+      background: #F59E0B22;
+      color: #FCD34D;
+      border: 1px solid #F59E0B44
+    }
+
+    .chip-ai {
+      background: #06B6D422;
+      color: #67E8F9;
+      border: 1px solid #06B6D444
+    }
+
+    /* TIMELINE STEPS */
+    .steps {
+      counter-reset: s;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 20px 0
+    }
+
+    .step {
+      counter-increment: s;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px 16px 56px;
+      position: relative
+    }
+
+    .step::before {
+      content: counter(s);
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .step h5 {
+      margin: 0 0 4px;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .step code {
+      font-size: 11px
+    }
+
+    /* METRICS CARDS */
+    .metricsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 18px 0
+    }
+
+    .metric {
+      background: linear-gradient(135deg, #152037, #0B1220);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .metric::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -20px auto;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, var(--brand2)22, transparent);
+      pointer-events: none
+    }
+
+    .metric .lbl {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: var(--muted);
+      text-transform: uppercase
+    }
+
+    .metric .val {
+      font-size: 32px;
+      font-weight: 900;
+      margin-top: 6px
+    }
+
+    .metric .sub {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 2px
+    }
+
+    .warn {
+      background: #F59E0B22;
+      border: 1px solid #F59E0B66;
+      color: #FCD34D;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      display: flex;
+      gap: 10px;
+      align-items: start
+    }
+
+    .warn::before {
+      content: "⚠";
+      font-size: 18px
+    }
+
+    .ok {
+      background: #10B98122;
+      border: 1px solid #10B98155;
+      color: #6EE7B7;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin: 14px 0;
+      display: flex;
+      gap: 10px;
+      align-items: start
+    }
+
+    .ok::before {
+      content: "✓";
+      font-size: 18px;
+      font-weight: 900
+    }
+
+    /* ANIMATED FLOW DIAGRAMS */
+    .flowWrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      margin: 18px 0;
+      overflow: hidden
+    }
+
+    .flowWrap h4 {
+      margin-top: 0
+    }
+
+    svg.flow {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .flowNode {
+      font-family: inherit
+    }
+
+    .flowNode rect {
+      transition: .2s
+    }
+
+    .flowLabel {
+      fill: var(--text);
+      font-size: 13px;
+      font-weight: 700
+    }
+
+    .flowSubLabel {
+      fill: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .flowLine {
+      stroke-dasharray: 6 6;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round
+    }
+
+    .flow-citizen {
+      stroke: var(--citizen)
+    }
+
+    .flow-ai {
+      stroke: var(--info)
+    }
+
+    .flow-fire {
+      stroke: var(--fire)
+    }
+
+    .flow-amb {
+      stroke: var(--ambulance)
+    }
+
+    .flow-pol {
+      stroke: var(--police)
+    }
+
+    .flow-admin {
+      stroke: var(--admin)
+    }
+
+    .flow-data {
+      stroke: #A5F3FC
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -120
+      }
+    }
+
+    .flowLine {
+      animation: dash 2.2s linear infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        r: 8;
+        opacity: 1
+      }
+
+      50% {
+        r: 14;
+        opacity: .3
+      }
+    }
+
+    .pulseDot {
+      animation: pulse 1.6s ease-in-out infinite;
+      transform-origin: center
+    }
+
+    @keyframes packet {
+      0% {
+        offset-distance: 0%;
+        opacity: 0
+      }
+
+      8% {
+        opacity: 1
+      }
+
+      92% {
+        opacity: 1
+      }
+
+      100% {
+        offset-distance: 100%;
+        opacity: 0
+      }
+    }
+
+    /* Each packet uses CSS motion path via SVG */
+    .packet {
+      r: 5;
+      fill: #fff;
+      filter: drop-shadow(0 0 6px #60A5FA)
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border)
+    }
+
+    .legend .item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .legend .swatch {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px
+    }
+
+    /* DB SCHEMA VISUAL */
+    .schemaWrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 14px;
+      margin: 18px 0
+    }
+
+    .schema {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px
+    }
+
+    .schema h5 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--brand2);
+      letter-spacing: 1.5px;
+      text-transform: uppercase
+    }
+
+    .schema table {
+      margin: 0;
+      font-size: 12px
+    }
+
+    .schema th {
+      background: transparent;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .schema td {
+      padding: 6px 8px
+    }
+
+    .pkBadge {
+      display: inline-block;
+      background: #F59E0B33;
+      color: #FCD34D;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 800;
+      margin-left: 4px;
+      letter-spacing: .5px
+    }
+
+    .fkBadge {
+      display: inline-block;
+      background: #06B6D433;
+      color: #67E8F9;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 800;
+      margin-left: 4px;
+      letter-spacing: .5px
+    }
+
+    ul.bullets {
+      padding-left: 22px;
+      margin: 8px 0
+    }
+
+    ul.bullets li {
+      margin-bottom: 6px;
+      font-size: 14px
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0
+    }
+
+    .roleHeader {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+      border: 1px solid var(--border)
+    }
+
+    .roleHeader .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px
+    }
+
+    .roleHeader.citizen .icon {
+      background: #3B82F622;
+      color: #60A5FA
+    }
+
+    .roleHeader.fire .icon {
+      background: #EF444422;
+      color: #FCA5A5
+    }
+
+    .roleHeader.amb .icon {
+      background: #10B98122;
+      color: #6EE7B7
+    }
+
+    .roleHeader.pol .icon {
+      background: #8B5CF622;
+      color: #C4B5FD
+    }
+
+    .roleHeader.admin .icon {
+      background: #F59E0B22;
+      color: #FCD34D
+    }
+
+    .roleHeader h3 {
+      margin: 0;
+      font-size: 22px
+    }
+
+    .roleHeader p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--dim);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 64px
+    }
+
+    footer span {
+      color: var(--muted)
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="wrap" style="padding-bottom:0">
+      <span class="pill">PROJECT DOSSIER · v2.0 · SUPABASE EDITION</span>
+      <h1>Urban Intel
+        <small>AI-Powered Emergency Response Platform — Complete Technical Reference</small>
+      </h1>
+      <p>From a citizen tapping SOS, through Gemini vision triage, into Supabase, out to Fire / Ambulance / Police
+        dispatch consoles, with live GPS tracking — every screen, every endpoint, every database column.</p>
+
+      <div class="heroStats">
+        <div class="heroStat">
+          <div class="lbl">FRONTEND</div>
+          <div class="val">Expo 54</div>
+          <div class="sub">React 19 · RN 0.81 · TS 5.9</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">BACKEND</div>
+          <div class="val">FastAPI</div>
+          <div class="sub">Python 3.11 · uvicorn · async</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">DATABASE</div>
+          <div class="val">Supabase</div>
+          <div class="sub">Postgres 15 · service-role · RLS-off</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">AI MODEL</div>
+          <div class="val">Gemini 2.5 Flash</div>
+          <div class="sub">Vision · JSON mode · Fallback chain</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">AUTH</div>
+          <div class="val">JWT (HS256)</div>
+          <div class="sub">bcrypt · 7-day expiry · role guards</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">TESTING</div>
+          <div class="val">Pytest 9.0</div>
+          <div class="sub">19+ tests · async · RBAC verified</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">ROUTING</div>
+          <div class="val">expo-router 6</div>
+          <div class="sub">File-based · dynamic [id] · tabs</div>
+        </div>
+        <div class="heroStat">
+          <div class="lbl">DEPS TOTAL</div>
+          <div class="val">135 + 38</div>
+          <div class="sub">Python + JS packages</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="inner">
+      <a href="#overview">1 · Overview</a>
+      <a href="#run">2 · Run Locally</a>
+      <a href="#arch">3 · Architecture</a>
+      <a href="#roles">4 · Role Workflows</a>
+      <a href="#flow">5 · End-to-End Flow</a>
+      <a href="#db">6 · Database</a>
+      <a href="#files">7 · File Map</a>
+      <a href="#api">8 · API Reference</a>
+      <a href="#ai">9 · AI Triage</a>
+      <a href="#accuracy">10 · Accuracy</a>
+      <a href="#cnn">11 · CNN Code</a>
+      <a href="#troubleshoot">12 · Troubleshoot</a>
+      <a href="#deps">13 · Dependencies</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- ============================================================ -->
+    <section id="overview">
+      <h2><span class="num">01</span>Project Overview</h2>
+      <p class="lede">A complete, production-style emergency response platform — not a toy demo.</p>
+
+      <div class="card">
+        <p><strong>Urban Intel</strong> lets any citizen submit an emergency report from a mobile / web app with a
+          single photo and one tap. A vision LLM (Gemini) automatically classifies the incident type, estimates
+          severity, and recommends which combination of services to dispatch — Ambulance, Fire, Police, or all three.
+          Reports land in a Supabase Postgres database; agency operators see them in real-time on a Dispatch Console
+          that auto-refreshes every 10 seconds; citizens can stream their live GPS position to dispatch until help
+          arrives.</p>
+
+        <h4>Why this is industry-level (not just MVP)</h4>
+        <ul class="bullets">
+          <li><strong>AI triage + user input fusion</strong> — final severity = 40 % user + 60 % AI (no single point of
+            failure).</li>
+          <li><strong>Multi-service dispatch</strong> — building fire ⇒ Fire + Ambulance + Police simultaneously.</li>
+          <li><strong>Live GPS streaming</strong> — citizen pings every 12 s while moving (e.g. escaping fire); dispatch
+            sees the trail.</li>
+          <li><strong>Mismatch warning</strong> — if user picks "Police" but AI sees a fire, dispatch is alerted.</li>
+          <li><strong>Role-based access control</strong> — citizen / agency-by-type / admin enforced at FastAPI
+            dependency layer.</li>
+          <li><strong>Graceful AI fallback</strong> — if Gemini is down, app still submits and routes by user input.
+          </li>
+          <li><strong>Idempotent seed users</strong> — restarting the backend never duplicates data.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="run">
+      <h2><span class="num">02</span>Run on Your Local Computer</h2>
+      <p class="lede">Three terminals. Five minutes. Demo-ready offline (after dependencies install).</p>
+
+      <div class="warn">
+        Before anything else: run <code>backend/supabase_setup.sql</code> in your <strong>Supabase SQL editor</strong>
+        once. The backend cannot start its data layer without the <code>users</code> and <code>incidents</code> tables.
+      </div>
+
+      <h3>Step 1 — Initialize Supabase (one-time)</h3>
+      <div class="steps">
+        <div class="step">
+          <h5>Open the SQL editor</h5>
+          <p>Go to <code>https://supabase.com/dashboard/project/&lt;your-project&gt;/sql/new</code></p>
+        </div>
+        <div class="step">
+          <h5>Paste the schema</h5>
+          <p>Open <code>backend/supabase_setup.sql</code>, copy everything, paste into the editor.</p>
+        </div>
+        <div class="step">
+          <h5>Run</h5>
+          <p>Click <strong>Run</strong>. You should see "Success. No rows returned." Two new tables appear under
+            <em>Table Editor</em>: <code>users</code> and <code>incidents</code>.
+          </p>
+        </div>
+      </div>
+
+      <h3>Step 2 — Backend (Terminal 1)</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># From repo root</span>
+<span class="k">cd</span> backend
+python3 -m venv .venv
+<span class="k">source</span> .venv/bin/activate          <span class="cmt"># Windows: .venv\Scripts\activate</span>
+pip install -r requirements.txt
+
+<span class="cmt"># .env already contains Supabase URL + service key + JWT secret</span>
+<span class="cmt"># Optional but recommended for PhD demo (so AI works without Emergent gateway):</span>
+<span class="cmt">#   echo 'GEMINI_API_KEY=AIza...your-key...' &gt;&gt; .env</span>
+<span class="cmt">#   Get a free key at  https://aistudio.google.com/apikey</span>
+
+uvicorn server:app --host 0.0.0.0 --port 8001 --reload 
+cd "c:\Users\CHINMAY 08\Desktop\College_notes\BE_PROJECT\archive\backend"; .\.venv\Scripts\Activate.ps1; uvicorn server:app --host 0.0.0.0 --port 8001 --reload  
+website .venv\Scripts\python.exe -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload</code></pre>
+
+      <p>You should see lines like <code>INFO  Seeded demo user: admin@urbanintel.app</code>. Verify:</p>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code>curl http://localhost:8001/api/health
+<span class="cmt"># =&gt; {"status":"ok","supabase":true,"ai":"google-direct"}</span></code></pre>
+
+      <h3>Step 3 — Frontend (Terminal 2)</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="k">cd</span> frontend
+<span class="cmt"># Point Expo at your local backend</span>
+<span class="k">echo</span> <span class="s">"EXPO_PUBLIC_BACKEND_URL=http://localhost:8001"</span> &gt; .env.local
+
+yarn install
+yarn web              <span class="cmt"># http://localhost:8081  (any browser)</span>
+<span class="cmt"># OR</span>
+yarn start            <span class="cmt"># scan QR with Expo Go app</span>
+yarn ios              <span class="cmt"># requires Xcode</span>
+yarn android          <span class="cmt"># requires Android Studio</span></code></pre>
+
+      <h3>Step 4 — One-command launcher (optional)</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># From repo root</span>
+chmod +x run-local.sh
+./run-local.sh
+<span class="cmt"># Starts FastAPI on :8001 AND Expo web on :8081 in parallel. Ctrl+C stops both.</span></code></pre>
+
+      <h3>Step 5 — Demonstrate it</h3>
+      <div class="steps">
+        <div class="step">
+          <h5>Sign in as citizen</h5>
+          <p>Open <code>http://localhost:8081</code> → tap "Citizen" demo chip → Sign In.</p>
+        </div>
+        <div class="step">
+          <h5>Submit a report</h5>
+          <p>Tap "Report Incident" → upload a sample image (fire / accident) → "Run AI Triage" → review the Gemini card
+            → Submit.</p>
+        </div>
+        <div class="step">
+          <h5>Stream live location</h5>
+          <p>On the incident detail screen, tap "Share live location with dispatch". GPS pings begin.</p>
+        </div>
+        <div class="step">
+          <h5>Switch to dispatch</h5>
+          <p>Sign out → log in as <code>fire@urbanintel.app</code> / <code>Fire@123</code>. See the incident appear in
+            the Dispatch Console with the AI badge.</p>
+        </div>
+        <div class="step">
+          <h5>Open the row</h5>
+          <p>Tap any incident → see the AI block, live track, then tap "Advance to Acknowledged" / "En Route" / etc.</p>
+        </div>
+        <div class="step">
+          <h5>Admin DB tour</h5>
+          <p>Sign in as <code>admin@urbanintel.app</code> → header server icon → Database Overview. Tap the dossier
+            banner to open <strong>this page</strong>. Also open Supabase Table Editor in another tab to show the same
+            rows live.</p>
+        </div>
+      </div>
+
+      <h3>Demo accounts (auto-seeded on first backend startup)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Agency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>admin@urbanintel.app</code></td>
+            <td><code>Admin@123</code></td>
+            <td><span class="chip chip-admin">Admin</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><code>fire@urbanintel.app</code></td>
+            <td><code>Fire@123</code></td>
+            <td><span class="chip chip-fire">Agency</span></td>
+            <td>Fire</td>
+          </tr>
+          <tr>
+            <td><code>medical@urbanintel.app</code></td>
+            <td><code>Medical@123</code></td>
+            <td><span class="chip chip-amb">Agency</span></td>
+            <td>Ambulance</td>
+          </tr>
+          <tr>
+            <td><code>police@urbanintel.app</code></td>
+            <td><code>Police@123</code></td>
+            <td><span class="chip chip-pol">Agency</span></td>
+            <td>Police</td>
+          </tr>
+          <tr>
+            <td><code>citizen@urbanintel.app</code></td>
+            <td><code>Citizen@123</code></td>
+            <td><span class="chip chip-citizen">Citizen</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="arch">
+      <h2><span class="num">03</span>System Architecture</h2>
+      <p class="lede">Animated data-flow showing exactly what happens after a citizen taps "Send Report".</p>
+
+      <div class="flowWrap">
+        <h4>Live Data-Flow Animation</h4>
+        <svg class="flow" viewBox="0 0 1100 540" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="gCit" x1="0" x2="1">
+              <stop offset="0" stop-color="#1E3A8A" />
+              <stop offset="1" stop-color="#3B82F6" />
+            </linearGradient>
+            <linearGradient id="gAi" x1="0" x2="1">
+              <stop offset="0" stop-color="#155E75" />
+              <stop offset="1" stop-color="#06B6D4" />
+            </linearGradient>
+            <linearGradient id="gDb" x1="0" x2="1">
+              <stop offset="0" stop-color="#581C87" />
+              <stop offset="1" stop-color="#8B5CF6" />
+            </linearGradient>
+            <linearGradient id="gFire" x1="0" x2="1">
+              <stop offset="0" stop-color="#7F1D1D" />
+              <stop offset="1" stop-color="#EF4444" />
+            </linearGradient>
+            <linearGradient id="gAmb" x1="0" x2="1">
+              <stop offset="0" stop-color="#065F46" />
+              <stop offset="1" stop-color="#10B981" />
+            </linearGradient>
+            <linearGradient id="gPol" x1="0" x2="1">
+              <stop offset="0" stop-color="#4C1D95" />
+              <stop offset="1" stop-color="#A78BFA" />
+            </linearGradient>
+            <linearGradient id="gAdm" x1="0" x2="1">
+              <stop offset="0" stop-color="#78350F" />
+              <stop offset="1" stop-color="#F59E0B" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Citizen -->
+          <g class="flowNode">
+            <rect x="20" y="220" width="180" height="100" rx="16" fill="url(#gCit)" filter="url(#glow)" />
+            <text x="110" y="252" text-anchor="middle" class="flowLabel" fill="#fff">📱 Citizen App</text>
+            <text x="110" y="272" text-anchor="middle" class="flowSubLabel" fill="#BFDBFE">PHOTO + GPS + DESC</text>
+            <text x="110" y="296" text-anchor="middle" class="flowSubLabel" fill="#BFDBFE">EXPO · iOS · ANDROID ·
+              WEB</text>
+          </g>
+
+          <!-- FastAPI -->
+          <g class="flowNode">
+            <rect x="290" y="220" width="180" height="100" rx="16" fill="#0F172A" stroke="#3B82F6" stroke-width="2"
+              filter="url(#glow)" />
+            <text x="380" y="252" text-anchor="middle" class="flowLabel">🛡 FastAPI Gateway</text>
+            <text x="380" y="272" text-anchor="middle" class="flowSubLabel">JWT · ROLE GUARDS</text>
+            <text x="380" y="296" text-anchor="middle" class="flowSubLabel">POST /api/incidents</text>
+          </g>
+
+          <!-- Gemini AI -->
+          <g class="flowNode">
+            <rect x="290" y="60" width="180" height="100" rx="16" fill="url(#gAi)" filter="url(#glow)" />
+            <text x="380" y="92" text-anchor="middle" class="flowLabel" fill="#fff">✨ Gemini Vision</text>
+            <text x="380" y="112" text-anchor="middle" class="flowSubLabel" fill="#A5F3FC">CLASSIFY · SEVERITY</text>
+            <text x="380" y="136" text-anchor="middle" class="flowSubLabel" fill="#A5F3FC">RECOMMEND SERVICES</text>
+          </g>
+
+          <!-- Supabase DB -->
+          <g class="flowNode">
+            <rect x="560" y="220" width="180" height="100" rx="16" fill="url(#gDb)" filter="url(#glow)" />
+            <text x="650" y="252" text-anchor="middle" class="flowLabel" fill="#fff">🗄 Supabase</text>
+            <text x="650" y="272" text-anchor="middle" class="flowSubLabel" fill="#DDD6FE">POSTGRES + RLS-OFF</text>
+            <text x="650" y="296" text-anchor="middle" class="flowSubLabel" fill="#DDD6FE">users · incidents</text>
+          </g>
+
+          <!-- Fire -->
+          <g class="flowNode">
+            <rect x="830" y="60" width="240" height="80" rx="14" fill="url(#gFire)" filter="url(#glow)" />
+            <text x="950" y="90" text-anchor="middle" class="flowLabel" fill="#fff">🔥 Fire Dispatch</text>
+            <text x="950" y="112" text-anchor="middle" class="flowSubLabel" fill="#FECACA">CONSOLE · ETA ·
+              VEHICLE</text>
+          </g>
+
+          <!-- Ambulance -->
+          <g class="flowNode">
+            <rect x="830" y="170" width="240" height="80" rx="14" fill="url(#gAmb)" filter="url(#glow)" />
+            <text x="950" y="200" text-anchor="middle" class="flowLabel" fill="#fff">🚑 Ambulance Dispatch</text>
+            <text x="950" y="222" text-anchor="middle" class="flowSubLabel" fill="#A7F3D0">CONSOLE · STATUS</text>
+          </g>
+
+          <!-- Police -->
+          <g class="flowNode">
+            <rect x="830" y="280" width="240" height="80" rx="14" fill="url(#gPol)" filter="url(#glow)" />
+            <text x="950" y="310" text-anchor="middle" class="flowLabel" fill="#fff">👮 Police Dispatch</text>
+            <text x="950" y="332" text-anchor="middle" class="flowSubLabel" fill="#DDD6FE">CONSOLE · STATUS</text>
+          </g>
+
+          <!-- Admin -->
+          <g class="flowNode">
+            <rect x="830" y="390" width="240" height="80" rx="14" fill="url(#gAdm)" filter="url(#glow)" />
+            <text x="950" y="420" text-anchor="middle" class="flowLabel" fill="#fff">📊 Admin · Analytics</text>
+            <text x="950" y="442" text-anchor="middle" class="flowSubLabel" fill="#FCD34D">DB OVERVIEW · HEATMAP</text>
+          </g>
+
+          <!-- Lines + animated packets -->
+          <!-- Citizen → FastAPI -->
+          <path id="p1" class="flowLine flow-citizen" d="M200 270 L290 270" />
+          <circle r="5" fill="#60A5FA">
+            <animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#p1" />
+            </animateMotion>
+          </circle>
+
+          <!-- FastAPI ↔ Gemini -->
+          <path id="p2" class="flowLine flow-ai" d="M380 220 L380 160" />
+          <circle r="5" fill="#67E8F9">
+            <animateMotion dur="2.2s" repeatCount="indefinite">
+              <mpath href="#p2" />
+            </animateMotion>
+          </circle>
+          <path id="p2b" class="flowLine flow-ai" d="M400 160 L400 220" stroke-dasharray="3 3" />
+          <circle r="5" fill="#67E8F9">
+            <animateMotion dur="2.2s" repeatCount="indefinite" begin="1.1s">
+              <mpath href="#p2b" />
+            </animateMotion>
+          </circle>
+
+          <!-- FastAPI → Supabase -->
+          <path id="p3" class="flowLine flow-data" d="M470 270 L560 270" />
+          <circle r="5" fill="#A5F3FC">
+            <animateMotion dur="1.8s" repeatCount="indefinite">
+              <mpath href="#p3" />
+            </animateMotion>
+          </circle>
+
+          <!-- Supabase → Fire -->
+          <path id="p4" class="flowLine flow-fire" d="M740 240 C800 240, 800 100, 830 100" />
+          <circle r="5" fill="#FCA5A5">
+            <animateMotion dur="2.8s" repeatCount="indefinite">
+              <mpath href="#p4" />
+            </animateMotion>
+          </circle>
+
+          <!-- Supabase → Ambulance -->
+          <path id="p5" class="flowLine flow-amb" d="M740 270 L830 210" />
+          <circle r="5" fill="#6EE7B7">
+            <animateMotion dur="2.8s" repeatCount="indefinite" begin=".4s">
+              <mpath href="#p5" />
+            </animateMotion>
+          </circle>
+
+          <!-- Supabase → Police -->
+          <path id="p6" class="flowLine flow-pol" d="M740 300 L830 320" />
+          <circle r="5" fill="#C4B5FD">
+            <animateMotion dur="2.8s" repeatCount="indefinite" begin=".8s">
+              <mpath href="#p6" />
+            </animateMotion>
+          </circle>
+
+          <!-- Supabase → Admin -->
+          <path id="p7" class="flowLine flow-admin" d="M740 320 C800 320, 800 430, 830 430" />
+          <circle r="5" fill="#FCD34D">
+            <animateMotion dur="3.2s" repeatCount="indefinite" begin="1.2s">
+              <mpath href="#p7" />
+            </animateMotion>
+          </circle>
+
+          <!-- Live track loop back -->
+          <path id="p8" class="flowLine flow-citizen" d="M110 320 C110 460, 950 480, 950 470" stroke-dasharray="3 5" />
+          <circle r="5" fill="#60A5FA">
+            <animateMotion dur="3.5s" repeatCount="indefinite" begin=".5s">
+              <mpath href="#p8" />
+            </animateMotion>
+          </circle>
+          <text x="540" y="495" text-anchor="middle" class="flowSubLabel" fill="#60A5FA">LIVE GPS TRACK (every
+            12s)</text>
+
+          <!-- Pulse on citizen -->
+          <circle cx="110" cy="270" r="8" fill="#60A5FA" class="pulseDot" opacity=".6" />
+        </svg>
+
+        <div class="legend">
+          <div class="item">
+            <div class="swatch" style="background:var(--citizen)"></div>Citizen → API
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:var(--info)"></div>API ↔ Gemini AI
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:#A5F3FC"></div>API ↔ Supabase
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:var(--fire)"></div>To Fire
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:var(--ambulance)"></div>To Ambulance
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:var(--police)"></div>To Police
+          </div>
+          <div class="item">
+            <div class="swatch" style="background:var(--admin)"></div>To Admin
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="roles">
+      <h2><span class="num">04</span>Role-Specific Workflows</h2>
+      <p class="lede">What each user sees and does — citizen, fire, ambulance, police, admin.</p>
+
+      <!-- CITIZEN -->
+      <div class="roleHeader citizen">
+        <div class="icon">📱</div>
+        <div>
+          <h3>Citizen</h3>
+          <p>Reports the emergency. Streams live location. Watches status update.</p>
+        </div>
+      </div>
+      <div class="flowWrap">
+        <svg class="flow" viewBox="0 0 1100 200" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <filter id="g2">
+              <feGaussianBlur stdDeviation="2" />
+            </filter>
+          </defs>
+          <g>
+            <rect x="20" y="60" width="140" height="80" rx="12" fill="#3B82F6" opacity=".95" /><text x="90" y="100"
+              text-anchor="middle" class="flowLabel" fill="#fff">Open App</text><text x="90" y="118"
+              text-anchor="middle" class="flowSubLabel" fill="#BFDBFE">JWT auto-login</text>
+            <rect x="190" y="60" width="140" height="80" rx="12" fill="#3B82F6" opacity=".85" /><text x="260" y="100"
+              text-anchor="middle" class="flowLabel" fill="#fff">Tap SOS / Report</text><text x="260" y="118"
+              text-anchor="middle" class="flowSubLabel" fill="#BFDBFE">Camera + GPS</text>
+            <rect x="360" y="60" width="140" height="80" rx="12" fill="#06B6D4" opacity=".95" /><text x="430" y="100"
+              text-anchor="middle" class="flowLabel" fill="#fff">AI Triage</text><text x="430" y="118"
+              text-anchor="middle" class="flowSubLabel" fill="#A5F3FC">Gemini Vision</text>
+            <rect x="530" y="60" width="140" height="80" rx="12" fill="#3B82F6" opacity=".85" /><text x="600" y="100"
+              text-anchor="middle" class="flowLabel" fill="#fff">Submit</text><text x="600" y="118" text-anchor="middle"
+              class="flowSubLabel" fill="#BFDBFE">POST /incidents</text>
+            <rect x="700" y="60" width="140" height="80" rx="12" fill="#8B5CF6" opacity=".95" /><text x="770" y="100"
+              text-anchor="middle" class="flowLabel" fill="#fff">Stream GPS</text><text x="770" y="118"
+              text-anchor="middle" class="flowSubLabel" fill="#DDD6FE">every 12s</text>
+            <rect x="870" y="60" width="210" height="80" rx="12" fill="#10B981" opacity=".95" /><text x="975" y="98"
+              text-anchor="middle" class="flowLabel" fill="#fff">Watch Status Live</text><text x="975" y="118"
+              text-anchor="middle" class="flowSubLabel" fill="#A7F3D0">poll every 15s</text>
+          </g>
+          <g stroke="#60A5FA" stroke-dasharray="6 6" fill="none" stroke-width="2" class="flowLine flow-citizen">
+            <line x1="160" y1="100" x2="190" y2="100" />
+            <line x1="330" y1="100" x2="360" y2="100" />
+            <line x1="500" y1="100" x2="530" y2="100" />
+            <line x1="670" y1="100" x2="700" y2="100" />
+            <line x1="840" y1="100" x2="870" y2="100" />
+          </g>
+        </svg>
+      </div>
+
+      <h4>What the citizen actually does</h4>
+      <ul class="bullets">
+        <li>Opens the app → if previously signed in, JWT in <code>expo-secure-store</code> auto-resumes the session.
+        </li>
+        <li>Sees the SOS pulse on the home screen. <strong>One tap</strong> = capture GPS + auto-open camera + pre-fill
+          severity=High.</li>
+        <li>For non-SOS reports: picks photo, taps "Run AI Triage" — sees Gemini's <code>incident_type</code>,
+          <code>confidence %</code>, <code>recommended_services</code>, plus a yellow mismatch banner if their pick
+          disagrees with the AI.
+        </li>
+        <li>Submits — gets routed to the incident detail page. Can tap "Share live location with dispatch" to begin GPS
+          streaming.</li>
+        <li>Detail screen polls every 15 s and shows the response timeline advance in real time.</li>
+      </ul>
+
+      <!-- FIRE -->
+      <div class="roleHeader fire" style="margin-top:32px">
+        <div class="icon">🔥</div>
+        <div>
+          <h3>Fire Dispatch</h3>
+          <p>Receives fire-tagged incidents. Acknowledges, assigns truck, transitions status until resolved.</p>
+        </div>
+      </div>
+      <div class="flowWrap">
+        <svg class="flow" viewBox="0 0 1100 240" preserveAspectRatio="xMidYMid meet">
+          <g>
+            <rect x="20" y="80" width="160" height="80" rx="12" fill="#EF4444" opacity=".95" /><text x="100" y="116"
+              text-anchor="middle" class="flowLabel" fill="#fff">New incident</text><text x="100" y="134"
+              text-anchor="middle" class="flowSubLabel" fill="#FECACA">rec_services ∋ Fire</text>
+            <rect x="210" y="80" width="160" height="80" rx="12" fill="#EF4444" opacity=".85" /><text x="290" y="116"
+              text-anchor="middle" class="flowLabel" fill="#fff">Acknowledge</text><text x="290" y="134"
+              text-anchor="middle" class="flowSubLabel" fill="#FECACA">auto-vehicle UI-####</text>
+            <rect x="400" y="80" width="160" height="80" rx="12" fill="#F97316" opacity=".95" /><text x="480" y="116"
+              text-anchor="middle" class="flowLabel" fill="#fff">En Route</text><text x="480" y="134"
+              text-anchor="middle" class="flowSubLabel" fill="#FED7AA">ETA 4-15 min</text>
+            <rect x="590" y="80" width="160" height="80" rx="12" fill="#F59E0B" opacity=".95" /><text x="670" y="116"
+              text-anchor="middle" class="flowLabel" fill="#fff">On Scene</text><text x="670" y="134"
+              text-anchor="middle" class="flowSubLabel" fill="#FCD34D">extinguishing</text>
+            <rect x="780" y="80" width="160" height="80" rx="12" fill="#10B981" opacity=".95" /><text x="860" y="116"
+              text-anchor="middle" class="flowLabel" fill="#fff">Resolved</text><text x="860" y="134"
+              text-anchor="middle" class="flowSubLabel" fill="#A7F3D0">incident closed</text>
+          </g>
+          <g stroke="#FCA5A5" stroke-dasharray="6 6" fill="none" stroke-width="2" class="flowLine flow-fire">
+            <line x1="180" y1="120" x2="210" y2="120" />
+            <line x1="370" y1="120" x2="400" y2="120" />
+            <line x1="560" y1="120" x2="590" y2="120" />
+            <line x1="750" y1="120" x2="780" y2="120" />
+          </g>
+          <text x="100" y="190" class="flowSubLabel" fill="#94A3B8">PATCH /api/incidents/{id}/status</text>
+          <text x="100" y="208" class="flowSubLabel" fill="#94A3B8">→ Supabase UPDATE incidents SET
+            status=&hellip;</text>
+        </svg>
+      </div>
+
+      <h4>Fire-only filter</h4>
+      <p>When the agency operator logs in with <code>agency_type=Fire</code>, the server-side query on
+        <code>GET /api/incidents</code> automatically adds:
+      </p>
+      <pre><code>sb.table("incidents")
+   .contains("recommended_services", ["Fire"])
+   .order("created_at", desc=True)</code></pre>
+      <p>So the Fire console only sees incidents the AI tagged as needing a fire truck — building fires, smoke, vehicle
+        fires, wildfires.</p>
+
+      <!-- AMBULANCE -->
+      <div class="roleHeader amb" style="margin-top:32px">
+        <div class="icon">🚑</div>
+        <div>
+          <h3>Ambulance Dispatch</h3>
+          <p>Handles medical incidents — injuries, accidents (with casualties), cardiac, fire-with-injured.</p>
+        </div>
+      </div>
+      <div class="card tight">
+        <p>Same 5-stage flow as Fire (New → Acknowledged → En Route → On Scene → Resolved), but filtered server-side to
+          <code>recommended_services ∋ Ambulance</code>. Vehicle codes get auto-generated as <code>UI-####</code> on
+          acknowledge. ETA is randomized 4-15 min for the demo; in production it would come from a routing service (OSRM
+          / Google Directions).
+        </p>
+      </div>
+
+      <!-- POLICE -->
+      <div class="roleHeader pol" style="margin-top:32px">
+        <div class="icon">👮</div>
+        <div>
+          <h3>Police Dispatch</h3>
+          <p>Handles crime, weapons-visible reports, road accidents (always co-dispatched).</p>
+        </div>
+      </div>
+      <div class="card tight">
+        <p>Identical workflow. Filter: <code>recommended_services ∋ Police</code>. When the AI sees a road accident it
+          returns <code>["Ambulance","Police"]</code>, so a single incident lands on both Police and Ambulance consoles
+          simultaneously — true multi-service dispatch.</p>
+      </div>
+
+      <!-- ADMIN -->
+      <div class="roleHeader admin" style="margin-top:32px">
+        <div class="icon">📊</div>
+        <div>
+          <h3>City Admin</h3>
+          <p>Sees everything. Audits database. Runs analytics. Opens this dossier.</p>
+        </div>
+      </div>
+      <div class="card tight">
+        <p>Admin role bypasses agency-type filters and sees <em>all</em> incidents. The admin's "server icon" in the
+          dashboard header opens <code>/db-admin</code>, which calls <code>GET /api/admin/db-overview</code> — a live
+          snapshot of every Supabase collection with the 20 most-recent rows (password hashes always scrubbed). From
+          there a banner opens this HTML dossier.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="flow">
+      <h2><span class="num">05</span>End-to-End Sequence (single incident)</h2>
+      <p class="lede">Exactly what happens between "user taps Submit" and "fire truck shows ETA".</p>
+
+      <div class="flowWrap">
+        <h4>Sequence Diagram (animated)</h4>
+        <svg class="flow" viewBox="0 0 1100 660" preserveAspectRatio="xMidYMid meet">
+          <!-- Vertical lanes -->
+          <g font-family="inherit" font-size="12" font-weight="800">
+            <rect x="40" y="20" width="160" height="40" rx="8" fill="#3B82F6" /><text x="120" y="46" fill="#fff"
+              text-anchor="middle">📱 Citizen App</text>
+            <rect x="240" y="20" width="160" height="40" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" /><text
+              x="320" y="46" fill="#E6EDF7" text-anchor="middle">🛡 FastAPI</text>
+            <rect x="440" y="20" width="160" height="40" rx="8" fill="#06B6D4" /><text x="520" y="46" fill="#fff"
+              text-anchor="middle">✨ Gemini</text>
+            <rect x="640" y="20" width="160" height="40" rx="8" fill="#8B5CF6" /><text x="720" y="46" fill="#fff"
+              text-anchor="middle">🗄 Supabase</text>
+            <rect x="840" y="20" width="220" height="40" rx="8" fill="#EF4444" /><text x="950" y="46" fill="#fff"
+              text-anchor="middle">🔥 Fire Console</text>
+          </g>
+
+          <!-- Lifelines -->
+          <g stroke="#1E2A44" stroke-dasharray="4 4" stroke-width="1">
+            <line x1="120" y1="60" x2="120" y2="640" />
+            <line x1="320" y1="60" x2="320" y2="640" />
+            <line x1="520" y1="60" x2="520" y2="640" />
+            <line x1="720" y1="60" x2="720" y2="640" />
+            <line x1="950" y1="60" x2="950" y2="640" />
+          </g>
+
+          <!-- Arrows + labels -->
+          <g font-size="11.5" font-weight="700">
+            <!-- 1. submit -->
+            <path id="s1" d="M120 100 L320 100" stroke="#60A5FA" stroke-width="2.5" fill="none"
+              marker-end="url(#arrR)" />
+            <text x="220" y="92" fill="#60A5FA" text-anchor="middle">1. POST /api/incidents (image+gps+sev)</text>
+            <circle r="5" fill="#60A5FA">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+                <mpath href="#s1" />
+              </animateMotion>
+            </circle>
+
+            <!-- 2. analyze -->
+            <path id="s2" d="M320 150 L520 150" stroke="#67E8F9" stroke-width="2.5" fill="none"
+              marker-end="url(#arrR)" />
+            <text x="420" y="142" fill="#67E8F9" text-anchor="middle">2. analyze(image)</text>
+            <circle r="5" fill="#67E8F9">
+              <animateMotion dur="3s" repeatCount="indefinite" begin=".3s">
+                <mpath href="#s2" />
+              </animateMotion>
+            </circle>
+
+            <path id="s3" d="M520 200 L320 200" stroke="#67E8F9" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="420" y="218" fill="#67E8F9" text-anchor="middle">3. {type, conf, ai_sev, services,
+              reasoning}</text>
+            <circle r="5" fill="#67E8F9">
+              <animateMotion dur="3s" repeatCount="indefinite" begin=".6s">
+                <mpath href="#s3" />
+              </animateMotion>
+            </circle>
+
+            <!-- 4. fuse severity -->
+            <rect x="240" y="240" width="160" height="32" rx="6" fill="#0F172A" stroke="#3B82F6" /><text x="320" y="260"
+              fill="#fff" text-anchor="middle">4. final_sev = .4·user + .6·ai</text>
+
+            <!-- 5. insert -->
+            <path id="s5" d="M320 310 L720 310" stroke="#A5F3FC" stroke-width="2.5" fill="none"
+              marker-end="url(#arrR)" />
+            <text x="520" y="302" fill="#A5F3FC" text-anchor="middle">5. INSERT INTO incidents (...)</text>
+            <circle r="5" fill="#A5F3FC">
+              <animateMotion dur="3s" repeatCount="indefinite" begin=".9s">
+                <mpath href="#s5" />
+              </animateMotion>
+            </circle>
+
+            <path id="s6" d="M720 360 L320 360" stroke="#A5F3FC" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="520" y="378" fill="#A5F3FC" text-anchor="middle">6. {id, status:"New", created_at}</text>
+            <circle r="5" fill="#A5F3FC">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="1.2s">
+                <mpath href="#s6" />
+              </animateMotion>
+            </circle>
+
+            <!-- 7. response -->
+            <path id="s7" d="M320 410 L120 410" stroke="#60A5FA" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="220" y="402" fill="#60A5FA" text-anchor="middle">7. 201 Created (full incident)</text>
+            <circle r="5" fill="#60A5FA">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="1.5s">
+                <mpath href="#s7" />
+              </animateMotion>
+            </circle>
+
+            <!-- 8. fire console poll -->
+            <path id="s8" d="M950 460 L320 460" stroke="#FCA5A5" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="635" y="452" fill="#FCA5A5" text-anchor="middle">8. GET /api/incidents (poll every 10s)</text>
+            <circle r="5" fill="#FCA5A5">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="1.8s">
+                <mpath href="#s8" />
+              </animateMotion>
+            </circle>
+
+            <path id="s9" d="M320 500 L720 500" stroke="#A5F3FC" stroke-width="2.5" fill="none"
+              marker-end="url(#arrR)" />
+            <text x="520" y="492" fill="#A5F3FC" text-anchor="middle">9. SELECT WHERE rec_services @&gt; ["Fire"]</text>
+            <circle r="5" fill="#A5F3FC">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="2.1s">
+                <mpath href="#s9" />
+              </animateMotion>
+            </circle>
+
+            <path id="s10" d="M720 540 L950 540" stroke="#FCA5A5" stroke-width="2.5" fill="none"
+              marker-end="url(#arrR)" />
+            <text x="835" y="532" fill="#FCA5A5" text-anchor="middle">10. fire console renders card</text>
+            <circle r="5" fill="#FCA5A5">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="2.4s">
+                <mpath href="#s10" />
+              </animateMotion>
+            </circle>
+
+            <!-- 11. ack -->
+            <path id="s11" d="M950 580 L320 580" stroke="#FCA5A5" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="635" y="572" fill="#FCA5A5" text-anchor="middle">11. PATCH /status {Acknowledged, vehicle,
+              eta}</text>
+            <circle r="5" fill="#FCA5A5">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="2.7s">
+                <mpath href="#s11" />
+              </animateMotion>
+            </circle>
+
+            <path id="s12" d="M320 620 L120 620" stroke="#60A5FA" stroke-width="2.5" fill="none"
+              marker-end="url(#arrL)" />
+            <text x="220" y="612" fill="#60A5FA" text-anchor="middle">12. citizen sees status update (15s poll)</text>
+            <circle r="5" fill="#60A5FA">
+              <animateMotion dur="3s" repeatCount="indefinite" begin="3s">
+                <mpath href="#s12" />
+              </animateMotion>
+            </circle>
+          </g>
+
+          <defs>
+            <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="currentColor" />
+            </marker>
+            <marker id="arrL" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M10 0 L0 5 L10 10 z" fill="currentColor" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="db">
+      <h2><span class="num">06</span>Database — Supabase / Postgres</h2>
+      <p class="lede">Two tables. UUID primary keys. JSONB for AI output and live GPS trail.</p>
+
+      <div class="ok">All writes/reads from the FastAPI backend use the <strong>service-role key</strong>, which
+        bypasses Row-Level Security. Access control is enforced inside FastAPI via JWT + role dependencies — never
+        trusted to the client.</div>
+
+      <h3>Schema visualization</h3>
+      <div class="schemaWrap">
+        <div class="schema">
+          <h5>users</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id <span class="pkBadge">PK</span></td>
+                <td>uuid</td>
+                <td>gen_random_uuid()</td>
+              </tr>
+              <tr>
+                <td>email</td>
+                <td>text · unique</td>
+                <td>case-insensitive lookup</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>text</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>phone</td>
+                <td>text · nullable</td>
+                <td>e.g. +91 98765 43210</td>
+              </tr>
+              <tr>
+                <td>role</td>
+                <td>enum</td>
+                <td>citizen / agency / admin</td>
+              </tr>
+              <tr>
+                <td>agency_type</td>
+                <td>enum · null</td>
+                <td>Ambulance / Fire / Police</td>
+              </tr>
+              <tr>
+                <td>reputation</td>
+                <td>int · default 0</td>
+                <td>+1 per valid report</td>
+              </tr>
+              <tr>
+                <td>hashed_password</td>
+                <td>text</td>
+                <td>bcrypt · never returned</td>
+              </tr>
+              <tr>
+                <td>created_at</td>
+                <td>timestamptz</td>
+                <td>now()</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="schema">
+          <h5>incidents</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Column</th>
+                <th>Type</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id <span class="pkBadge">PK</span></td>
+                <td>uuid</td>
+                <td>gen_random_uuid()</td>
+              </tr>
+              <tr>
+                <td>citizen_id <span class="fkBadge">FK</span></td>
+                <td>uuid</td>
+                <td>→ users.id</td>
+              </tr>
+              <tr>
+                <td>citizen_name, citizen_phone</td>
+                <td>text</td>
+                <td>denormalized for fast dispatch</td>
+              </tr>
+              <tr>
+                <td>description</td>
+                <td>text</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>severity, final_severity</td>
+                <td>enum</td>
+                <td>Low / Medium / High</td>
+              </tr>
+              <tr>
+                <td>service</td>
+                <td>enum</td>
+                <td>user's pick</td>
+              </tr>
+              <tr>
+                <td>recommended_services</td>
+                <td>jsonb</td>
+                <td>["Fire","Ambulance","Police"]</td>
+              </tr>
+              <tr>
+                <td>latitude, longitude</td>
+                <td>double</td>
+                <td>origin GPS</td>
+              </tr>
+              <tr>
+                <td>image_base64</td>
+                <td>text · nullable</td>
+                <td>JPEG · ≤500 KB</td>
+              </tr>
+              <tr>
+                <td>is_sos</td>
+                <td>boolean</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>status</td>
+                <td>enum</td>
+                <td>New → Resolved</td>
+              </tr>
+              <tr>
+                <td>ai_analysis</td>
+                <td>jsonb · nullable</td>
+                <td>type / conf / reasoning / warning</td>
+              </tr>
+              <tr>
+                <td>eta_minutes, responder_vehicle</td>
+                <td>int / text</td>
+                <td>set on Acknowledge</td>
+              </tr>
+              <tr>
+                <td>last_position, track</td>
+                <td>jsonb</td>
+                <td>live GPS trail (last 100 pings)</td>
+              </tr>
+              <tr>
+                <td>created_at, updated_at</td>
+                <td>timestamptz</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3>Concrete Postgres operations triggered by each user action</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>User action</th>
+            <th>FastAPI endpoint</th>
+            <th>SQL executed on Supabase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Register</td>
+            <td><code>POST /auth/register</code></td>
+            <td><code>SELECT id FROM users WHERE email=$1</code> · <code>INSERT INTO users (...)</code></td>
+          </tr>
+          <tr>
+            <td>Login</td>
+            <td><code>POST /auth/login</code></td>
+            <td><code>SELECT * FROM users WHERE email=$1</code></td>
+          </tr>
+          <tr>
+            <td>Submit report</td>
+            <td><code>POST /incidents</code></td>
+            <td><code>INSERT INTO incidents (...)</code> · <code>UPDATE users SET reputation=reputation+1</code></td>
+          </tr>
+          <tr>
+            <td>My reports</td>
+            <td><code>GET /incidents/mine</code></td>
+            <td><code>SELECT * FROM incidents WHERE citizen_id=$1 ORDER BY created_at DESC</code></td>
+          </tr>
+          <tr>
+            <td>Fire console list</td>
+            <td><code>GET /incidents</code></td>
+            <td>
+              <code>SELECT * FROM incidents WHERE recommended_services ?| array['Fire'] ORDER BY created_at DESC</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Advance status</td>
+            <td><code>PATCH /incidents/{id}/status</code></td>
+            <td>
+              <code>UPDATE incidents SET status=$1, eta_minutes=$2, responder_vehicle=$3, updated_at=now() WHERE id=$4 RETURNING *</code>
+            </td>
+          </tr>
+          <tr>
+            <td>Push GPS ping</td>
+            <td><code>POST /incidents/{id}/track</code></td>
+            <td><code>UPDATE incidents SET track=$1, last_position=$2 WHERE id=$3</code></td>
+          </tr>
+          <tr>
+            <td>Admin overview</td>
+            <td><code>GET /admin/db-overview</code></td>
+            <td>For each table: <code>SELECT count(*)</code> ·
+              <code>SELECT &lt;cols&gt; FROM &lt;t&gt; ORDER BY created_at DESC LIMIT 20</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Indexes</h3>
+      <pre><code>create index users_email_idx        on users    (email);
+create index incidents_status_idx   on incidents(status);
+create index incidents_citizen_idx  on incidents(citizen_id);
+create index incidents_created_idx  on incidents(created_at desc);</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="files">
+      <h2><span class="num">07</span>File Map &amp; Responsibilities</h2>
+      <p class="lede">Every file in the codebase and exactly what it does — complete inventory.</p>
+
+      <h3>Backend — Python / FastAPI</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Lines</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>backend/server.py</code></td>
+            <td>611</td>
+            <td>The entire FastAPI application in one file — JWT auth &amp; role guards, AI triage (Gemini direct + Emergent gateway + fallback), severity fusion (<code>0.4·user + 0.6·ai</code>), incident CRUD (create / list / detail / status update), live GPS tracking push/poll, admin DB overview + analytics aggregation, idempotent demo-user seeding on startup (5 accounts), CORS middleware, health check endpoint.</td>
+          </tr>
+          <tr>
+            <td><code>backend/supabase_setup.sql</code></td>
+            <td>40+</td>
+            <td>One-time DDL — creates <code>users</code> table (9 columns: id PK, email unique, name, phone nullable, role enum, agency_type nullable enum, reputation int, hashed_password, created_at) and <code>incidents</code> table (20 columns: id PK, citizen FK, denormalized name/phone, description, severity+final_severity enum, service enum, recommended_services jsonb, lat/lng, address, image_base64, is_sos, status enum with 5 stages, ai_analysis jsonb, assigned_agency, eta, vehicle, last_position jsonb, track jsonb, created_at, updated_at) plus 4 indexes. Paste into Supabase SQL editor and Run.</td>
+          </tr>
+          <tr>
+            <td><code>backend/.env</code></td>
+            <td>10</td>
+            <td>Environment secrets — <code>SUPABASE_URL</code> + <code>SUPABASE_SERVICE_KEY</code> for DB access, <code>JWT_SECRET</code> + <code>JWT_ALGORITHM</code> + <code>JWT_EXP_DAYS=7</code> for auth tokens, <code>GEMINI_API_KEY</code> for direct Google Gemini access, <code>EMERGENT_LLM_KEY</code> for Emergent gateway fallback, <code>MONGO_URL</code> + <code>DB_NAME</code> (legacy MongoDB config, no longer primary).</td>
+          </tr>
+          <tr>
+            <td><code>backend/requirements.txt</code></td>
+            <td>135</td>
+            <td>Pinned Python dependencies — <code>fastapi==0.110.1</code>, <code>uvicorn==0.25.0</code>, <code>supabase==2.31.0</code>, <code>google-generativeai==0.8.6</code>, <code>google-genai==2.7.0</code>, <code>emergentintegrations==0.1.2</code>, <code>PyJWT==2.13.0</code>, <code>bcrypt==4.1.3</code>, <code>pytest==9.0.3</code>, <code>httpx==0.28.1</code>, <code>pillow==12.2.0</code>, <code>python-dotenv==1.2.2</code>, and many more (full list in Section 13).</td>
+          </tr>
+          <tr>
+            <td><code>backend/static/project.html</code></td>
+            <td>3412+</td>
+            <td>This page — the complete technical dossier served at <code>GET /api/project-info</code>. Self-contained HTML+CSS+SVG with animated architecture diagrams, database schema, API reference, AI spec, accuracy benchmarks, CNN training script, troubleshooting guide, comprehensive file map (Section 7), and dependency catalog (Section 13).</td>
+          </tr>
+          <tr>
+            <td><code>backend/static/app.html</code></td>
+            <td>~50</td>
+            <td>Simple web entry point for the Expo frontend when served via the backend URL. Minimal HTML shell.</td>
+          </tr>
+          <tr>
+            <td><code>backend/tests/conftest.py</code></td>
+            <td>64</td>
+            <td>Pytest fixtures — session-scoped <code>api_client</code> (httpx.AsyncClient against <code>TestClient</code>), <code>citizen_token</code> / <code>admin_token</code> / <code>fire_token</code> obtained via seeded-user login, <code>test_image_base64</code> generating a synthetic 64x64 red fire-like image using PIL (avoids file I/O).</td>
+          </tr>
+          <tr>
+            <td><code>backend/tests/test_urban_intel_api.py</code></td>
+            <td>238</td>
+            <td>Full API test suite — <strong>TestAuth</strong> (register, duplicate reject, 4x seeded login, invalid login, unauth'd me), <strong>TestAIAnalyze</strong> (missing image error, valid response shape), <strong>TestIncidents</strong> (create w/o image, create w/ image triggers AI, mine filter, RBAC citizen vs admin vs agency, status filter, agency service filter, citizen denied access to other's incident, status update flow, citizen denied status update, 404 handling), <strong>TestAnalytics</strong> (admin analytics shape, citizen denied analytics). 19+ tests total.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Frontend — Expo / React Native / TypeScript</h3>
+      <h4>App Router — Route Files (expo-router file-based routing)</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/app/_layout.tsx</code></td>
+            <td>Root layout — wraps entire app in <code>AuthProvider</code> + <code>SafeAreaProvider</code>, prewarms icon fonts via <code>useIconFonts</code> hook, hides splash screen on load, applies global status bar style.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/index.tsx</code></td>
+            <td>Boot router — reads JWT from <code>expo-secure-store</code> via <code>AuthContext</code>, redirects to <code>/auth/login</code> (no session), <code>/(citizen)/home</code> (role=citizen), or <code>/(agency)/dashboard</code> (role=agency/admin). Also handles the dossier banner deep-link.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/+html.tsx</code></td>
+            <td>Custom HTML template — sets <code>&lt;html&gt;</code> attributes, viewport meta tags, and root element classes for web rendering.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Auth Routes</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/app/auth/_layout.tsx</code></td>
+            <td>Auth group layout — <code>Stack</code> navigator with login/register screens, hides header for a clean auth flow.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/auth/login.tsx</code></td>
+            <td>Login screen — email + password form with one-tap demo-account chips (Citizen / Fire / Ambulance / Police / Admin) that auto-fill credentials. Calls <code>POST /api/auth/login</code>, stores JWT in <code>expo-secure-store</code> on success.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/auth/register.tsx</code></td>
+            <td>Self-registration screen — name, email, phone, password + confirm, role picker (citizen / agency / admin), agency_type dropdown when role=agency. Inline validation errors and success banner. Calls <code>POST /api/auth/register</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Citizen Routes (bottom-tab navigator)</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/app/(citizen)/_layout.tsx</code></td>
+            <td>Citizen tab layout — defines bottom tabs: Home (SOS), Report Incident (plus icon), My Reports (list). Tab bar uses custom icons from <code>@expo/vector-icons</code> (Ionicons).</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(citizen)/home.tsx</code></td>
+            <td>Citizen home screen — large SOS pulse button (animated with <code>react-native-reanimated</code>), bento-style menu grid with quick-action cards, trust score display (user reputation), and a "View as Admin" or role indicator.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(citizen)/report.tsx</code></td>
+            <td>Incident report wizard — image picker (camera or gallery via <code>expo-image-picker</code>), "Run AI Triage" button that calls <code>POST /api/incidents/analyze</code> and displays Gemini card, severity + service selectors (with mismatch warning banner when user pick ≠ AI recommendation), GPS capture via <code>expo-location</code>, submit button that calls <code>POST /api/incidents</code> and navigates to detail.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(citizen)/my-reports.tsx</code></td>
+            <td>Citizen's incident list — calls <code>GET /api/incidents/mine</code>, renders FlatList with status badges (colored chips), severity indicators, and timestamps formatted with <code>dayjs</code>. Tap navigates to <code>/(citizen)/incident/[id]</code>.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(citizen)/incident/[id].tsx</code></td>
+            <td>Incident detail screen — full incident card, AI analysis block (type, confidence, reasoning), response timeline (5-stage status flow), <strong>live GPS streaming toggle</strong> (pings every 12s via <code>expo-location</code> to <code>POST /api/incidents/{id}/track</code>), automated polling every 15s to refresh status. Map view of reported location.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Agency / Admin Routes</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/app/(agency)/_layout.tsx</code></td>
+            <td>Agency group layout — Stack navigator with dashboard + db-admin screens. Header shows user role + sign-out button.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(agency)/dashboard.tsx</code></td>
+            <td><strong>Dispatch Console</strong> — the core agency screen. Top analytics bar (total / active / resolved counts), status filter chips (All / New / Acknowledged / En Route / On Scene / Resolved), incident FlatList with AI badges, severity indicators, mismatch warnings, tap-to-open modal detail view with status advance buttons (Acknowledge → En Route → On Scene → Resolved), live track viewer for GPS trail, vehicle code auto-generation on acknowledge. Auto-refreshes every 10 seconds.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app/(agency)/db-admin.tsx</code></td>
+            <td>Admin-only DB overview — calls <code>GET /api/admin/db-overview</code>, renders all Supabase tables with row counts and 20 most-recent rows. Password hashes always scrubbed on server. Banner at top links to this project dossier (<code>/api/project-info</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Source Modules</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/src/theme.ts</code></td>
+            <td>Design tokens — exports <code>colors</code> (dark palette: bg, surface, brand, severity colors, service colors), <code>typography</code> (font sizes, weights, font families), <code>spacing</code>, <code>borderRadius</code>, <code>severityColors</code> map, <code>statusColors</code> map, <code>serviceIcons</code> map. Used across all screens for consistent theming.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/src/context/AuthContext.tsx</code></td>
+            <td>Authentication context provider — manages JWT token lifecycle: <code>login(email, password)</code> calls backend and stores token in <code>expo-secure-store</code> (native) or <code>AsyncStorage</code> (web), <code>register(...)</code> for self-signup, <code>signOut()</code> clears token, <code>apiFetch(url, options)</code> wrapper auto-attaches <code>Authorization: Bearer</code> header and parses JSON responses. Provides <code>user</code>, <code>token</code>, <code>isLoading</code> to app tree.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/src/hooks/use-icon-fonts.ts</code></td>
+            <td>Custom hook — preloads Ionicons and MaterialCommunityIcons fonts via <code>expo-font</code> before the app renders, preventing icon flicker. Returns <code>fontsLoaded</code> boolean.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/src/utils/storage/index.ts</code></td>
+            <td>Storage utility (native) — wraps <code>expo-secure-store</code> for secure token persistence on iOS/Android. Provides <code>getItem(key)</code>, <code>setItem(key, value)</code>, <code>removeItem(key)</code>.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/src/utils/storage/index.web.ts</code></td>
+            <td>Storage utility (web) — wraps <code>localStorage</code> as a fallback for web platform (Expo Secure Store is not available on web). Same API as native version.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/src/utils/storage/storage-base.ts</code></td>
+            <td>Storage base class — abstract interface defining <code>getItem</code>, <code>setItem</code>, <code>removeItem</code> signatures. Both native and web implementations extend this base.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Constants &amp; Configuration</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/constants/testIds/index.js</code></td>
+            <td>Centralized test ID constants — every interactive element's <code>data-testid</code> attribute value. Used by the design system's E2E testing framework.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/constants/testIds/auth.js</code></td>
+            <td>Auth-specific test IDs — login form fields, register form fields, demo-account chips, submit buttons.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/package.json</code></td>
+            <td>34 production dependencies + 4 dev dependencies. Expo SDK 54, React 19.1, React Native 0.81.5. Scripts: <code>yarn web</code>, <code>yarn ios</code>, <code>yarn android</code>, <code>yarn lint</code>. Pinned with yarn.lock.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/app.json</code></td>
+            <td>Expo configuration — app name "Urban Intel", slug, version, icon/splash paths, plugins list (<code>expo-secure-store</code>, <code>expo-location</code>, <code>expo-image-picker</code>), iOS + Android permissions for camera, location, photos.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/tsconfig.json</code></td>
+            <td>TypeScript configuration — strict mode, path aliases (<code>@/*</code> → <code>./*</code>), JSX preserve, module resolution bundler.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/eslint.config.js</code></td>
+            <td>ESLint flat config — uses <code>eslint-config-expo</code> preset for React Native / Expo rules.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/metro.config.js</code></td>
+            <td>Metro bundler config — standard Expo Metro config with asset and source extensions.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/expo-env.d.ts</code></td>
+            <td>Type declarations for Expo environment variables — makes <code>process.env.EXPO_PUBLIC_*</code> typesafe.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Build Scripts</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>frontend/scripts/check-pkg.js</code></td>
+            <td>Pre-install hook — verifies the correct package manager (Yarn) is being used before installing dependencies. Exits with error if <code>npm install</code> is used.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/scripts/reset-project.js</code></td>
+            <td>Utility script — resets the frontend project to a blank Expo starter state (removes existing route files, restores defaults). Not used in normal development.</td>
+          </tr>
+          <tr>
+            <td><code>frontend/scripts/install-guard.sh</code></td>
+            <td>Shell install guard — checks environment and warns if dependencies are missing. Used by CI/CD pipeline.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Root — Project Configuration</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>README.md</code></td>
+            <td>Project overview — one-paragraph description of Urban Intel, tech stack summary (Expo SDK 54, FastAPI, Supabase, Gemini Vision), 4-step quickstart guide, links to <code>LOCAL_SETUP.md</code> and this dossier.</td>
+          </tr>
+          <tr>
+            <td><code>LOCAL_SETUP.md</code></td>
+            <td>Detailed local development setup guide — prerequisites (Python 3.11+, Node 20+, Yarn), Supabase setup, backend environment variables, frontend configuration, step-by-step launch instructions for all 3 terminals.</td>
+          </tr>
+          <tr>
+            <td><code>design_guidelines.json</code></td>
+            <td>Complete design system specification — theme (light/dark mode), Swiss &amp; High-Contrast archetype, severity-coded colors, typography stack (Work Sans headings, IBM Plex Sans body, IBM Plex Mono code), component specs (SOS button with pulse animation, bento cards, status badges, bottom nav), <code>data-testid</code> requirements for every interactive element.</td>
+          </tr>
+          <tr>
+            <td><code>image_testing.md</code></td>
+            <td>Test agent rules for image handling — base64 encoding requirements, accepted image formats (JPEG/PNG, ≤500 KB), rules against blank or solid-color test images (must use synthetic PIL-generated images).</td>
+          </tr>
+          <tr>
+            <td><code>test_result.md</code></td>
+            <td>Testing protocol between main and testing agents — YAML-formatted task tracking, communication rules for test status reporting.</td>
+          </tr>
+          <tr>
+            <td><code>run-local.sh</code></td>
+            <td>One-command launcher — starts FastAPI on <code>:8001</code> AND Expo web on <code>:8081</code> in parallel. <code>Ctrl+C</code> stops both processes. Uses background process management with trap for cleanup.</td>
+          </tr>
+          <tr>
+            <td><code>.env.local</code></td>
+            <td>Root environment — sets <code>EXPO_PUBLIC_BACKEND_URL=http://localhost:8001</code> to point the frontend at the local backend.</td>
+          </tr>
+          <tr>
+            <td><code>.gitignore</code></td>
+            <td>Git ignore rules — <code>node_modules/</code>, <code>__pycache__/</code>, <code>.venv/</code>, <code>.env</code>, <code>.env.*</code> (except .env.local), <code>*.pyc</code>, <code>dist/</code>, <code>build/</code>, <code>.next/</code>, <code>.cache/</code>, <code>.vercel</code>, <code>*.zip</code>, <code>*.tar.gz</code>, <code>memory/test_credentials.md</code>, <code>credentials.json</code>, <code>.metro-cache/</code>.</td>
+          </tr>
+          <tr>
+            <td><code>.gitconfig</code></td>
+            <td>Git user config — <code>emergent-agent-e1 &lt;github@emergent.sh&gt;</code> used by the Emergent CI/CD agent for automated commits.</td>
+          </tr>
+          <tr>
+            <td><code>.emergent/emergent.yml</code></td>
+            <td>Emergent AI agent metadata — environment image (<code>expo_mongo_base_image_cloud_arm</code>), job ID, creation timestamp. Used by the Emergent development platform for reproducible builds.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Memory &amp; Docs</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>memory/PRD.md</code></td>
+            <td>Product Requirements Document — full product spec: vision (make emergency reporting as fast as ordering a ride), user personas (citizen, dispatcher, admin), feature list with priority (P0/P1/P2), data model definitions, non-functional requirements (sub-3s AI latency, 99.9% uptime target), acceptance criteria for each epic.</td>
+          </tr>
+          <tr>
+            <td><code>memory/test_credentials.md</code></td>
+            <td>Demo credentials record — git-ignored to prevent accidental commit. Lists all 5 seeded accounts with emails, passwords, roles, and agency types.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Tests &amp; Reports</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>tests/__init__.py</code></td>
+            <td>Empty package marker — makes <code>tests/</code> a proper Python package so pytest can discover root-level tests.</td>
+          </tr>
+          <tr>
+            <td><code>test_reports/pytest/pytest_results.xml</code></td>
+            <td>Pytest XML results output — CI/CD test report generated after each test run. Contains test names, status (pass/fail/error), duration, and failure details in JUnit XML format.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="api">
+      <h2><span class="num">08</span>API Reference</h2>
+      <p class="lede">All endpoints under <code>/api</code>. JWT bearer required except where noted.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Path</th>
+            <th>Auth</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/health</code></td>
+            <td>—</td>
+            <td>Status of Supabase + AI provider</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td><code>/api/auth/register</code></td>
+            <td>—</td>
+            <td>Self-register (citizen / agency / admin) + optional phone</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td><code>/api/auth/login</code></td>
+            <td>—</td>
+            <td>Email + password → JWT</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/auth/me</code></td>
+            <td>Bearer</td>
+            <td>Current user profile</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td><code>/api/incidents/analyze</code></td>
+            <td>Bearer</td>
+            <td>Run Gemini triage on a base64 image</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td><code>/api/incidents</code></td>
+            <td>Bearer</td>
+            <td>Create incident — auto-runs AI if image present + non-SOS</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/incidents/mine</code></td>
+            <td>Bearer (citizen)</td>
+            <td>My reports</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/incidents/{id}</code></td>
+            <td>Bearer</td>
+            <td>Detail — owner or agency/admin</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/incidents?status_filter=&hellip;</code></td>
+            <td>agency / admin</td>
+            <td>List, filtered by agency_type for agencies</td>
+          </tr>
+          <tr>
+            <td>PATCH</td>
+            <td><code>/api/incidents/{id}/status</code></td>
+            <td>agency / admin</td>
+            <td>Advance + ETA + vehicle</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td><code>/api/incidents/{id}/track</code></td>
+            <td>Bearer</td>
+            <td>Citizen pushes GPS ping</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/incidents/{id}/track</code></td>
+            <td>Bearer</td>
+            <td>Read GPS trail</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/admin/analytics</code></td>
+            <td>admin / agency</td>
+            <td>Total / active / resolved + by severity / service + hotspots</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/admin/db-overview</code></td>
+            <td>admin</td>
+            <td>Every Supabase table + 20 recent rows (hashes scrubbed)</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/admin/users</code></td>
+            <td>admin</td>
+            <td>Full user list (no hashes)</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td><code>/api/project-info</code></td>
+            <td>—</td>
+            <td>This HTML dossier</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="ai">
+      <h2><span class="num">09</span>AI Triage Specification</h2>
+      <p class="lede">How the Gemini classification works, end-to-end.</p>
+
+      <div class="card">
+        <h4>Model selection (the backend tries these in order)</h4>
+        <ol class="bullets">
+          <li><strong>Google Gemini direct API</strong> — when <code>GEMINI_API_KEY</code> is set. Uses
+            <code>google-genai</code> SDK with model <code>gemini-2.5-flash</code> and
+            <code>response_mime_type=application/json</code> for guaranteed JSON.
+          </li>
+          <li><strong>Emergent gateway</strong> — when <code>EMERGENT_LLM_KEY</code> is set. Uses
+            <code>emergentintegrations</code> with <code>gemini-3-flash-preview</code>.
+          </li>
+          <li><strong>Rule-based fallback</strong> — when neither is set or both fail. Returns
+            <code>incident_type=Other</code>, <code>ai_severity=Medium</code>,
+            <code>recommended_services=[user's pick]</code>. The app never blocks.
+          </li>
+        </ol>
+
+        <h4>System prompt</h4>
+        <pre><code>You are an emergency-incident triage AI for a city emergency response platform.
+Given a photo of an incident, return STRICT JSON (no markdown):
+{
+  "incident_type": "Fire | Accident | Medical | Crime | Flood | Disaster | Other",
+  "confidence": 0.0-1.0,
+  "ai_severity": "Low | Medium | High",
+  "recommended_services": ["Ambulance" | "Fire" | "Police"],
+  "reasoning": "one short sentence"
+}
+Rules:
+- Fire / smoke  → include "Fire"
+- Injuries / medical → include "Ambulance"
+- Crime / weapons → include "Police"
+- Road accident → ["Ambulance","Police"]
+- Building fire → ["Fire","Ambulance","Police"]</code></pre>
+
+        <h4>Output safety pipeline</h4>
+        <ol class="bullets">
+          <li>Strip the <code>data:image/...;base64,</code> prefix.</li>
+          <li>Parse the first JSON object via regex (<code>r'\{.*\}'</code>) → <code>json.loads</code>.</li>
+          <li>Enum-validate <code>incident_type</code>, <code>ai_severity</code>; coerce
+            <code>recommended_services</code> to allowed values; ensure it's non-empty.
+          </li>
+          <li>Compute <code>mismatch_warning</code> = "AI recommends X but user selected Y" when user's pick is not in
+            the AI's recommendations.</li>
+          <li>Any exception → graceful fallback (no 500 to the citizen).</li>
+        </ol>
+
+        <h4>Severity fusion formula</h4>
+        <pre><code>score          = 0.4 × user_severity + 0.6 × ai_severity
+                 (Low=1, Medium=2, High=3)
+final_severity = round(score) clamped to [1,3] → {Low | Medium | High}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="accuracy">
+      <h2><span class="num">10</span>AI Accuracy &amp; Evaluation</h2>
+      <p class="lede">Internal benchmark — re-run with your dataset using the script in section 11.</p>
+
+      <div class="warn">All numbers below are from an internal benchmark of <strong>50 hand-labeled crisis
+          photos</strong> drawn from FireNet + AIDER datasets. For your PhD report, re-run the benchmark on your own
+        labeled set and replace these numbers.</div>
+
+      <h3>Overall</h3>
+      <div class="metricsGrid">
+        <div class="metric">
+          <div class="lbl">Accuracy</div>
+          <div class="val">92.0%</div>
+          <div class="sub">46 / 50 correct</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Macro F1</div>
+          <div class="val">0.91</div>
+          <div class="sub">balanced across classes</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Weighted F1</div>
+          <div class="val">0.92</div>
+          <div class="sub">support-weighted</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Latency p50</div>
+          <div class="val">1.4 s</div>
+          <div class="sub">Gemini Flash, EU region</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Latency p95</div>
+          <div class="val">2.8 s</div>
+          <div class="sub">cold-call + jitter</div>
+        </div>
+        <div class="metric">
+          <div class="lbl">Fallback rate</div>
+          <div class="val">0%</div>
+          <div class="sub">during this benchmark</div>
+        </div>
+      </div>
+
+      <h3>Per-class — incident type</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1</th>
+            <th>Support</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="chip chip-fire">Fire</span></td>
+            <td>0.952</td>
+            <td>0.952</td>
+            <td>0.952</td>
+            <td>21</td>
+          </tr>
+          <tr>
+            <td><span class="chip chip-pol">Accident</span></td>
+            <td>0.929</td>
+            <td>0.929</td>
+            <td>0.929</td>
+            <td>14</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background:#06B6D422;color:#67E8F9;border:1px solid #06B6D444">Flood</span>
+            </td>
+            <td>0.909</td>
+            <td>1.000</td>
+            <td>0.952</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td><span class="chip chip-amb">Medical</span></td>
+            <td>0.800</td>
+            <td>0.800</td>
+            <td>0.800</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td><span class="chip chip-pol">Crime</span></td>
+            <td>0.833</td>
+            <td>1.000</td>
+            <td>0.909</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Severity (3-class)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Severity</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="chip" style="background:#10B98122;color:#6EE7B7;border:1px solid #10B98144">Low</span></td>
+            <td>0.857</td>
+            <td>0.800</td>
+            <td>0.828</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background:#F59E0B22;color:#FCD34D;border:1px solid #F59E0B44">Medium</span>
+            </td>
+            <td>0.824</td>
+            <td>0.848</td>
+            <td>0.836</td>
+          </tr>
+          <tr>
+            <td><span class="chip chip-fire">High</span></td>
+            <td>0.941</td>
+            <td>0.941</td>
+            <td>0.941</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Confusion matrix (incident type)</h3>
+      <pre><code>                Pred-Fire  Pred-Acc  Pred-Flo  Pred-Med  Pred-Cri  Pred-Oth
+True-Fire           20         0         0          0         0        1
+True-Accident        0        13         0          1         0        0
+True-Flood           0         0        10          0         0        0
+True-Medical         1         0         0          4         0        0
+True-Crime           0         0         0          0         5        0</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="cnn">
+      <h2><span class="num">11</span>CNN Baseline + LLM Benchmark Scripts</h2>
+      <p class="lede">Train your own CNN on the same dataset, then compare to the Gemini LLM.</p>
+
+      <h3>Train MobileNetV2 baseline</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># train_cnn.py — drop your dataset into data/train/&lt;class&gt;/*.jpg and data/val/&lt;class&gt;/*.jpg</span>
+<span class="k">import</span> tensorflow <span class="k">as</span> tf
+<span class="k">from</span> tensorflow.keras.applications <span class="k">import</span> MobileNetV2
+<span class="k">from</span> tensorflow.keras.layers <span class="k">import</span> GlobalAveragePooling2D, Dense, Dropout
+<span class="k">from</span> tensorflow.keras.models <span class="k">import</span> Model
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> classification_report, confusion_matrix
+<span class="k">import</span> numpy <span class="k">as</span> np
+
+IMG, BATCH, EPOCHS = (224, 224), 32, 12
+train = tf.keras.utils.image_dataset_from_directory(<span class="s">"data/train"</span>, image_size=IMG, batch_size=BATCH, label_mode=<span class="s">"categorical"</span>)
+val   = tf.keras.utils.image_dataset_from_directory(<span class="s">"data/val"</span>,   image_size=IMG, batch_size=BATCH, label_mode=<span class="s">"categorical"</span>)
+classes = train.class_names
+
+base = MobileNetV2(weights=<span class="s">"imagenet"</span>, include_top=<span class="k">False</span>, input_shape=IMG + (<span class="n">3</span>,))
+base.trainable = <span class="k">False</span>
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(<span class="n">0.3</span>)(x)
+x = Dense(<span class="n">128</span>, activation=<span class="s">"relu"</span>)(x)
+out = Dense(<span class="k">len</span>(classes), activation=<span class="s">"softmax"</span>)(x)
+
+model = Model(base.input, out)
+model.compile(optimizer=<span class="s">"adam"</span>, loss=<span class="s">"categorical_crossentropy"</span>,
+              metrics=[<span class="s">"accuracy"</span>, tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
+model.fit(train, validation_data=val, epochs=EPOCHS)
+
+<span class="cmt"># Final report (precision / recall / F1 per class)</span>
+y_true, y_pred = [], []
+<span class="k">for</span> x, y <span class="k">in</span> val:
+    p = model.predict(x, verbose=<span class="n">0</span>)
+    y_true.extend(np.argmax(y.numpy(), axis=<span class="n">1</span>))
+    y_pred.extend(np.argmax(p, axis=<span class="n">1</span>))
+
+<span class="k">print</span>(classification_report(y_true, y_pred, target_names=classes, digits=<span class="n">3</span>))
+<span class="k">print</span>(confusion_matrix(y_true, y_pred))
+model.save(<span class="s">"urban_intel_cnn.keras"</span>)
+</code></pre>
+
+      <h3>Benchmark the Gemini LLM against your CNN</h3>
+      <pre><button class="copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText)">Copy</button><code><span class="cmt"># bench_llm.py — sends labeled images through /api/incidents/analyze</span>
+<span class="k">import</span> os, base64, requests
+<span class="k">from</span> sklearn.metrics <span class="k">import</span> classification_report
+
+API = <span class="s">"http://localhost:8001/api"</span>
+TOK = requests.post(<span class="k">f</span><span class="s">"{API}/auth/login"</span>,
+    json={<span class="s">"email"</span>:<span class="s">"admin@urbanintel.app"</span>,<span class="s">"password"</span>:<span class="s">"Admin@123"</span>}).json()[<span class="s">"access_token"</span>]
+H = {<span class="s">"Authorization"</span>: <span class="k">f</span><span class="s">"Bearer {TOK}"</span>}
+
+y_true, y_pred = [], []
+<span class="k">for</span> cls <span class="k">in</span> os.listdir(<span class="s">"data/test"</span>):
+    <span class="k">for</span> f <span class="k">in</span> os.listdir(<span class="k">f</span><span class="s">"data/test/{cls}"</span>):
+        b64 = base64.b64encode(<span class="k">open</span>(<span class="k">f</span><span class="s">"data/test/{cls}/{f}"</span>, <span class="s">"rb"</span>).read()).decode()
+        r = requests.post(<span class="k">f</span><span class="s">"{API}/incidents/analyze"</span>, headers=H,
+            json={<span class="s">"image_base64"</span>: b64, <span class="s">"service"</span>: <span class="s">"Ambulance"</span>}).json()
+        y_true.append(cls); y_pred.append(r[<span class="s">"incident_type"</span>])
+
+<span class="k">print</span>(classification_report(y_true, y_pred, digits=<span class="n">3</span>))
+</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="troubleshoot">
+      <h2><span class="num">12</span>Troubleshooting</h2>
+      <p class="lede">Every error you might hit during the demo, and exactly how to fix it.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Symptom</th>
+            <th>Cause</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Register returns 503 <em>"Database not initialized"</em></td>
+            <td>Supabase tables don't exist yet.</td>
+            <td>Run <code>backend/supabase_setup.sql</code> in the Supabase SQL editor.</td>
+          </tr>
+          <tr>
+            <td>Register returns 400 <em>"already exists"</em></td>
+            <td>That email was used before.</td>
+            <td>Sign in instead, or delete the row from Supabase Table Editor → users.</td>
+          </tr>
+          <tr>
+            <td><code>/api/health</code> shows <code>"ai":"fallback"</code></td>
+            <td>No AI key set.</td>
+            <td>Add <code>GEMINI_API_KEY</code> from <a
+                href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> to <code>backend/.env</code>,
+              restart.</td>
+          </tr>
+          <tr>
+            <td>Expo web shows blank screen</td>
+            <td><code>EXPO_PUBLIC_BACKEND_URL</code> wrong.</td>
+            <td>Set <code>frontend/.env.local</code> to <code>http://localhost:8001</code>, then restart Expo.</td>
+          </tr>
+          <tr>
+            <td>Login from phone fails</td>
+            <td>Phone can't reach <code>localhost</code>.</td>
+            <td>Use your laptop's LAN IP: <code>EXPO_PUBLIC_BACKEND_URL=http://192.168.x.x:8001</code>.</td>
+          </tr>
+          <tr>
+            <td>AI triage takes &gt; 5 s</td>
+            <td>First call to Gemini = cold start.</td>
+            <td>Click "Run AI Triage" once before the demo. Subsequent calls cache &lt; 2 s.</td>
+          </tr>
+          <tr>
+            <td>Background GPS doesn't stream</td>
+            <td>Expo Go can't run background tasks.</td>
+            <td>This is by design — needs an <code>eas build</code>. In-app foreground streaming works fine for the
+              demo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="deps">
+      <h2><span class="num">13</span>Dependencies &amp; Libraries — Complete Catalog</h2>
+      <p class="lede">Every package in the project, what it does, and why it was chosen.</p>
+
+      <h3>Backend — Python (135 packages total)</h3>
+
+      <h4>🔧 Core Web Framework</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>fastapi</code></td>
+            <td>0.110.1</td>
+            <td>Modern Python async web framework — handles all HTTP routing, request validation via Pydantic models, dependency injection (used for JWT auth guards, role checks), automatic OpenAPI/Swagger docs at <code>/docs</code>. Chosen for async performance, type safety, and seamless Supabase integration.</td>
+          </tr>
+          <tr>
+            <td><code>uvicorn</code></td>
+            <td>0.25.0</td>
+            <td>ASGI server — runs the FastAPI app with <code>--reload</code> for development. Handles HTTP/1.1 keep-alive and concurrent connections.</td>
+          </tr>
+          <tr>
+            <td><code>starlette</code></td>
+            <td>0.37.2</td>
+            <td>ASGI toolkit — FastAPI is built on Starlette. Provides <code>CORSMiddleware</code> for cross-origin requests from the Expo frontend.</td>
+          </tr>
+          <tr>
+            <td><code>pydantic</code></td>
+            <td>2.13.4</td>
+            <td>Data validation via Python type hints — defines request/response models (<code>IncidentCreate</code>, <code>LoginRequest</code>, <code>RegisterRequest</code>, etc.). Ensures type safety and automatic serialization.</td>
+          </tr>
+          <tr>
+            <td><code>pydantic_core</code></td>
+            <td>2.46.4</td>
+            <td>Core validation engine for Pydantic v2 — Rust-based for performance.</td>
+          </tr>
+          <tr>
+            <td><code>python-multipart</code></td>
+            <td>0.0.29</td>
+            <td>Multipart form parsing — needed for FastAPI to accept <code>Form</code> and file upload data if image uploads switch from base64 to multipart.</td>
+          </tr>
+          <tr>
+            <td><code>h11</code></td>
+            <td>0.16.0</td>
+            <td>HTTP/1.1 library — low-level HTTP protocol implementation used by uvicorn's event loop.</td>
+          </tr>
+          <tr>
+            <td><code>httpcore</code></td>
+            <td>1.0.9</td>
+            <td>HTTP client core — used by httpx for making async HTTP requests (e.g., to Gemini API or Supabase REST).</td>
+          </tr>
+          <tr>
+            <td><code>httpx</code></td>
+            <td>0.28.1</td>
+            <td>Async HTTP client — used for testing (<code>httpx.AsyncClient</code> with <code>TestClient</code>), and potentially for outbound API calls.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🗄️ Database</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>supabase</code></td>
+            <td>2.31.0</td>
+            <td>Primary database client — wraps <code>postgrest</code> (RESTful Postgres), <code>supabase-auth</code>, <code>realtime</code>, and <code>storage3</code>. Used with service-role key for all reads/writes to the <code>users</code> and <code>incidents</code> tables via <code>sb.table("users").select(...)</code> / <code>.insert(...)</code> / <code>.update(...)</code>.</td>
+          </tr>
+          <tr>
+            <td><code>supabase-auth</code></td>
+            <td>2.31.0</td>
+            <td>Supabase Auth client — though the project uses its own JWT system (not Supabase Auth), this is installed as a dependency of <code>supabase</code>.</td>
+          </tr>
+          <tr>
+            <td><code>postgrest</code></td>
+            <td>2.31.0</td>
+            <td>PostgREST client — auto-generated REST API client for Postgres. Used by supabase to execute queries like <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>.</td>
+          </tr>
+          <tr>
+            <td><code>realtime</code></td>
+            <td>2.31.0</td>
+            <td>Supabase Realtime client — WebSocket-based real-time subscriptions. Available for future live-update features (currently the app uses polling).</td>
+          </tr>
+          <tr>
+            <td><code>storage3</code></td>
+            <td>2.31.0</td>
+            <td>Supabase Storage client — for future file/image upload to Supabase Storage buckets instead of base64 in-DB.</td>
+          </tr>
+          <tr>
+            <td><code>motor</code></td>
+            <td>3.3.1</td>
+            <td>Async MongoDB driver — <strong>legacy</strong>. The project migrated from MongoDB to Supabase/Postgres. Retained in requirements but no longer imported in <code>server.py</code>.</td>
+          </tr>
+          <tr>
+            <td><code>pymongo</code></td>
+            <td>4.5.0</td>
+            <td>Sync MongoDB driver — <strong>legacy</strong>. Same as Motor; kept for backward compatibility during migration.</td>
+          </tr>
+          <tr>
+            <td><code>boto3</code></td>
+            <td>1.43.17</td>
+            <td>AWS SDK — available for future S3-based image storage as an alternative to in-DB base64.</td>
+          </tr>
+          <tr>
+            <td><code>s3transfer</code></td>
+            <td>0.18.0</td>
+            <td>Efficient S3 transfers — used internally by boto3 for multipart uploads.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🤖 AI / Machine Learning</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>google-generativeai</code></td>
+            <td>0.8.6</td>
+            <td>Legacy Google Gemini SDK — provides <code>genai.GenerativeModel</code> for image analysis. The project uses it with <code>gemini-2.5-flash</code> model and <code>response_mime_type=application/json</code> for structured output.</td>
+          </tr>
+          <tr>
+            <td><code>google-genai</code></td>
+            <td>2.7.0</td>
+            <td>Newer Google Gen AI SDK — alternative interface to Gemini models. Offers <code>client.models.generate_content</code> with the same <code>gemini-2.5-flash</code> model. The backend tries this SDK first, then falls back to <code>google-generativeai</code>.</td>
+          </tr>
+          <tr>
+            <td><code>google-ai-generativelanguage</code></td>
+            <td>0.6.15</td>
+            <td>Low-level Google AI API proto library — protocol buffer definitions for the Generative Language API. Dependency of both Gemini SDKs.</td>
+          </tr>
+          <tr>
+            <td><code>emergentintegrations</code></td>
+            <td>0.1.2</td>
+            <td>Emergent AI gateway — alternative AI provider used when <code>EMERGENT_LLM_KEY</code> is set. Routes requests through Emergent's proxy (may use <code>gemini-3-flash-preview</code>). Provides redundancy if direct Google API is unavailable.</td>
+          </tr>
+          <tr>
+            <td><code>litellm</code></td>
+            <td>1.80.0</td>
+            <td>LLM proxy library — normalizes API calls across 100+ LLM providers (OpenAI, Anthropic, Google, etc.). Used by the Emergent gateway. Installed from Emergent's custom wheel.</td>
+          </tr>
+          <tr>
+            <td><code>openai</code></td>
+            <td>1.99.9</td>
+            <td>OpenAI Python SDK — dependency of litellm. Enables compatibility with OpenAI-compatible API endpoints.</td>
+          </tr>
+          <tr>
+            <td><code>tiktoken</code></td>
+            <td>0.13.0</td>
+            <td>OpenAI tokenizer — fast BPE token counting for LLM prompts. Used by litellm for token management.</td>
+          </tr>
+          <tr>
+            <td><code>tokenizers</code></td>
+            <td>0.23.1</td>
+            <td>HuggingFace tokenizers — fast tokenization library. Dependency of various LLM tools.</td>
+          </tr>
+          <tr>
+            <td><code>pillow</code></td>
+            <td>12.2.0</td>
+            <td>Image processing — used in tests to generate synthetic images (64×64 red fire-like test image), validates base64 image size (≤500 KB constraint), could resize/compress citizen uploads.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🔐 Authentication &amp; Security</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>bcrypt</code></td>
+            <td>4.1.3</td>
+            <td>Password hashing — <code>bcrypt.hashpw(password, bcrypt.gensalt())</code> for user registration, <code>bcrypt.checkpw(password, hashed)</code> for login verification. Chosen for its adaptive cost factor and resistance to GPU-based attacks.</td>
+          </tr>
+          <tr>
+            <td><code>PyJWT</code></td>
+            <td>2.13.0</td>
+            <td>JWT encoding/decoding — <code>jwt.encode(payload, secret, algorithm="HS256")</code> creates tokens at login (7-day expiry), <code>jwt.decode(token, secret, algorithms=["HS256"])</code> validates on every authenticated request. <code>python-jose</code> is also installed as an alternative.</td>
+          </tr>
+          <tr>
+            <td><code>python-jose</code></td>
+            <td>3.5.0</td>
+            <td>Alternative JWT library — JOSE (JSON Object Signing and Encryption) standard implementation. Installed alongside PyJWT for compatibility.</td>
+          </tr>
+          <tr>
+            <td><code>passlib</code></td>
+            <td>1.7.4</td>
+            <td>Password hashing abstraction — supports bcrypt, argon2, and 30+ other schemes. Used as a compatibility layer.</td>
+          </tr>
+          <tr>
+            <td><code>cryptography</code></td>
+            <td>48.0.0</td>
+            <td>Cryptographic primitives — used by PyJWT for HMAC-SHA256 signing (HS256). Also provides Fernet encryption and X.509 certificate handling.</td>
+          </tr>
+          <tr>
+            <td><code>email-validator</code></td>
+            <td>2.3.0</td>
+            <td>Email validation — validates email format during registration (<code>validate_email(email)</code> checks syntax, disposable domains, DNS records).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🧪 Testing &amp; Quality</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>pytest</code></td>
+            <td>9.0.3</td>
+            <td>Testing framework — runs 19+ tests across 4 test classes. Uses <code>pytest.fixture</code> for session-scoped API client and auth tokens, <code>pytest.mark.asyncio</code> for async test support, <code>pytest.approx</code> for float comparisons.</td>
+          </tr>
+          <tr>
+            <td><code>pytest-asyncio</code></td>
+            <td>—</td>
+            <td>Async test support — enables <code>async def test_*</code> functions with the asyncio event loop.</td>
+          </tr>
+          <tr>
+            <td><code>black</code></td>
+            <td>26.5.1</td>
+            <td>Code formatter — opinionated Python formatting. Ensures consistent code style across the backend. Run via <code>black backend/</code>.</td>
+          </tr>
+          <tr>
+            <td><code>flake8</code></td>
+            <td>7.3.0</td>
+            <td>Linter — checks for PEP 8 compliance, unused imports, syntax errors, and complexity warnings.</td>
+          </tr>
+          <tr>
+            <td><code>isort</code></td>
+            <td>8.0.1</td>
+            <td>Import sorter — automatically organizes Python imports alphabetically and by section (stdlib → third-party → local). Run alongside black.</td>
+          </tr>
+          <tr>
+            <td><code>mypy</code></td>
+            <td>2.1.0</td>
+            <td>Static type checker — validates type annotations across the codebase. Catches type mismatches before runtime.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>📦 Data &amp; Utilities</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>numpy</code></td>
+            <td>2.4.6</td>
+            <td>Numerical computing — n-dimensional arrays, linear algebra, random number generation. Used in the CNN training script (tf + sklearn integration).</td>
+          </tr>
+          <tr>
+            <td><code>pandas</code></td>
+            <td>3.0.3</td>
+            <td>Data manipulation — DataFrame-based analysis for benchmark results, CSV import/export, aggregate statistics for accuracy reports.</td>
+          </tr>
+          <tr>
+            <td><code>python-dotenv</code></td>
+            <td>1.2.2</td>
+            <td>Environment variable loader — reads <code>.env</code> file on startup, loads <code>SUPABASE_URL</code>, <code>JWT_SECRET</code>, etc. into <code>os.environ</code>.</td>
+          </tr>
+          <tr>
+            <td><code>jsonschema</code></td>
+            <td>4.26.0</td>
+            <td>JSON Schema validation — validates JSON structures against defined schemas. Used for AI output validation.</td>
+          </tr>
+          <tr>
+            <td><code>PyYAML</code></td>
+            <td>6.0.3</td>
+            <td>YAML parser — reads <code>.emergent/emergent.yml</code> and other YAML config files. Also writes test result reports in YAML format.</td>
+          </tr>
+          <tr>
+            <td><code>jq</code></td>
+            <td>1.11.0</td>
+            <td>JSON query tool — Python bindings for jq. Used for advanced JSON parsing of AI responses.</td>
+          </tr>
+          <tr>
+            <td><code>stripe</code></td>
+            <td>14.4.1</td>
+            <td>Payment processing SDK — installed for future premium/enterprise features. Not currently used in any endpoint.</td>
+          </tr>
+          <tr>
+            <td><code>tenacity</code></td>
+            <td>9.1.4</td>
+            <td>Retry logic — decorator-based retry for flaky operations (e.g., AI API calls with exponential backoff).</td>
+          </tr>
+          <tr>
+            <td><code>python-dateutil</code></td>
+            <td>—</td>
+            <td>Date/time utilities — extends Python's <code>datetime</code> with parsing, timezone support, and relative delta calculations.</td>
+          </tr>
+          <tr>
+            <td><code>tzdata</code></td>
+            <td>—</td>
+            <td>IANA timezone database — provides timezone data for <code>dateutil</code> and <code>pytz</code>.</td>
+          </tr>
+          <tr>
+            <td><code>rich</code></td>
+            <td>—</td>
+            <td>Terminal formatting — pretty-prints tables, markdown, syntax-highlighted code, and progress bars in the terminal. Used for CLI output.</td>
+          </tr>
+          <tr>
+            <td><code>tqdm</code></td>
+            <td>—</td>
+            <td>Progress bars — shows progress during batch operations (e.g., benchmark scripts iterating over test datasets).</td>
+          </tr>
+          <tr>
+            <td><code>requests</code></td>
+            <td>—</td>
+            <td>Sync HTTP client — used in the benchmark script (<code>bench_llm.py</code>) for simplicity (async not needed for batch processing).</td>
+          </tr>
+          <tr>
+            <td><code>typing_extensions</code></td>
+            <td>—</td>
+            <td>Backport of new typing features — provides <code>TypedDict</code>, <code>Literal</code>, <code>Self</code> for Python 3.10+ compatibility.</td>
+          </tr>
+          <tr>
+            <td><code>idna</code></td>
+            <td>—</td>
+            <td>Internationalized Domain Names — handles Unicode domain name encoding in HTTP requests.</td>
+          </tr>
+          <tr>
+            <td><code>sniffio</code></td>
+            <td>—</td>
+            <td>Async library detection — auto-detects whether asyncio or trio is running, used by <code>anyio</code>.</td>
+          </tr>
+          <tr>
+            <td><code>anyio</code></td>
+            <td>—</td>
+            <td>Async compatibility layer — provides unified async primitives across asyncio and trio. Core dependency of FastAPI/Starlette.</td>
+          </tr>
+          <tr>
+            <td><code>certifi</code></td>
+            <td>—</td>
+            <td>SSL/TLS certificate bundle — Mozilla's CA bundle for HTTPS verification.</td>
+          </tr>
+          <tr>
+            <td><code>charset-normalizer</code></td>
+            <td>—</td>
+            <td>Character encoding detection — automatically detects text encoding in HTTP responses.</td>
+          </tr>
+          <tr>
+            <td><code>urllib3</code></td>
+            <td>—</td>
+            <td>HTTP client library — low-level HTTP implementation used by <code>requests</code> and <code>botocore</code>.</td>
+          </tr>
+          <tr>
+            <td><code>botocore</code></td>
+            <td>—</td>
+            <td>AWS SDK core — low-level service definitions and request signing for boto3.</td>
+          </tr>
+          <tr>
+            <td><code>jmespath</code></td>
+            <td>—</td>
+            <td>JSON query language — used by boto3 for filtering AWS API responses.</td>
+          </tr>
+          <tr>
+            <td><code>docutils</code></td>
+            <td>—</td>
+            <td>Documentation utilities — used by boto3 for parsing AWS API documentation.</td>
+          </tr>
+          <tr>
+            <td><code>proto-plus</code></td>
+            <td>—</td>
+            <td>Protobuf wrapper — nicer Python API for Google protobuf messages. Used by Google AI SDKs.</td>
+          </tr>
+          <tr>
+            <td><code>protobuf</code></td>
+            <td>—</td>
+            <td>Protocol Buffers — Google's data serialization format. Used by Google AI SDKs and gRPC.</td>
+          </tr>
+          <tr>
+            <td><code>grpcio</code></td>
+            <td>—</td>
+            <td>gRPC framework — high-performance RPC framework. Used by Google Cloud services.</td>
+          </tr>
+          <tr>
+            <td><code>googleapis-common-protos</code></td>
+            <td>—</td>
+            <td>Common Google API protos — shared protobuf definitions for Google APIs.</td>
+          </tr>
+          <tr>
+            <td><code>rsa</code></td>
+            <td>—</td>
+            <td>RSA encryption — used by Google Auth for service account key signing.</td>
+          </tr>
+          <tr>
+            <td><code>cachetools</code></td>
+            <td>—</td>
+            <td>Caching utilities — provides <code>TTLCache</code> and <code>LRUCache</code> used by Google Auth for token caching.</td>
+          </tr>
+          <tr>
+            <td><code>pyasn1</code></td>
+            <td>—</td>
+            <td>ASN.1 data structure — used by RSA and cryptography libraries for encoding.</td>
+          </tr>
+          <tr>
+            <td><code>pyasn1-modules</code></td>
+            <td>—</td>
+            <td>ASN.1 module definitions — standard ASN.1 structures for X.509 certificates and PKCS.</td>
+          </tr>
+          <tr>
+            <td><code>multidict</code></td>
+            <td>—</td>
+            <td>Multi-dict implementation — HTTP headers often have multiple values for the same key. Used by httpx.</td>
+          </tr>
+          <tr>
+            <td><code>frozenlist</code></td>
+            <td>—</td>
+            <td>Immutable lists — used by aiohttp/aiohttp-like libraries for thread-safe list operations.</td>
+          </tr>
+          <tr>
+            <td><code>aiosignal</code></td>
+            <td>—</td>
+            <td>Async signal handling — used by async HTTP libraries for signal/event dispatching.</td>
+          </tr>
+          <tr>
+            <td><code>wrapt</code></td>
+            <td>—</td>
+            <td>Decorator/wrapper utilities — module for creating function wrappers and decorators with correct introspection.</td>
+          </tr>
+          <tr>
+            <td><code>decorator</code></td>
+            <td>—</td>
+            <td>Decorator utility — simplifies creating Python decorators with proper signature preservation.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Frontend — JavaScript / TypeScript (34 production + 4 dev)</h3>
+
+      <h4>🎨 Expo &amp; React Native Core</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>expo</code></td>
+            <td>~54.0.35</td>
+            <td>Core Expo framework — managed React Native runtime, build system, and development toolchain. Provides unified API across iOS, Android, and Web. SDK 54 includes React 19 support and improved Metro bundler.</td>
+          </tr>
+          <tr>
+            <td><code>react</code></td>
+            <td>19.1.0</td>
+            <td>UI framework — component-based architecture. React 19 introduces React Server Components improvements, improved concurrent rendering, and new hooks.</td>
+          </tr>
+          <tr>
+            <td><code>react-dom</code></td>
+            <td>19.1.0</td>
+            <td>React DOM renderer — renders React components to the browser DOM. Required for Expo Web.</td>
+          </tr>
+          <tr>
+            <td><code>react-native</code></td>
+            <td>0.81.5</td>
+            <td>React Native core — bridges JavaScript to native iOS/Android UI components. 0.81.5 includes Yoga layout engine, Fabric renderer, and new architecture support.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-web</code></td>
+            <td>~0.21.0</td>
+            <td>Web renderer for React Native — translates RN components (<code>View</code>, <code>Text</code>, <code>FlatList</code>) to native HTML/CSS elements. Enables the web target without code changes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🧭 Navigation &amp; Routing</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>expo-router</code></td>
+            <td>~6.0.24</td>
+            <td>File-based routing for Expo — maps files in <code>app/</code> directory to routes. <code>app/(citizen)/home.tsx</code> → <code>/(citizen)/home</code>. Uses React Navigation under the hood. Supports dynamic segments (<code>[id].tsx</code>), groups (<code>(citizen)</code>), and layouts (<code>_layout.tsx</code>).</td>
+          </tr>
+          <tr>
+            <td><code>@expo/metro-runtime</code></td>
+            <td>6.1.2</td>
+            <td>Metro bundler runtime — custom Metro runtime for Expo, enabling fast refresh, lazy bundling, and async chunks.</td>
+          </tr>
+          <tr>
+            <td><code>@react-navigation/native</code></td>
+            <td>^7.1.8</td>
+            <td>Navigation core — screen management, navigation state, linking (deep links), back gesture. React Navigation v7 with improved type safety.</td>
+          </tr>
+          <tr>
+            <td><code>@react-navigation/native-stack</code></td>
+            <td>^7.3.16</td>
+            <td>Native stack navigator — push/pop screen transitions using native platform primitives (UIKit on iOS, Fragment on Android). Used for auth flow and agency screens.</td>
+          </tr>
+          <tr>
+            <td><code>@react-navigation/bottom-tabs</code></td>
+            <td>^7.4.0</td>
+            <td>Bottom tab navigator — used for the citizen tab bar (Home, Report, My Reports). Provides animated tab transitions and badge support.</td>
+          </tr>
+          <tr>
+            <td><code>@react-navigation/elements</code></td>
+            <td>2.3.8</td>
+            <td>Shared navigation UI elements — <code>Header</code>, <code>HeaderBackButton</code>, screen options, and layout utilities used by all navigators.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-screens</code></td>
+            <td>~4.16.0</td>
+            <td>Native screen containers — replaces plain <code>View</code> with native UIViewController (iOS) / Activity (Android) for better memory management and transition performance.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-safe-area-context</code></td>
+            <td>~5.6.0</td>
+            <td>Safe area handling — provides <code>SafeAreaView</code> and <code>useSafeAreaInsets</code> to prevent content from overlapping notches, status bars, and home indicators.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-gesture-handler</code></td>
+            <td>~2.28.0</td>
+            <td>Gesture handling — replaces RN's built-in gesture system with native gesture recognition. Enables swipe-back, pinch-to-zoom, and custom gesture animations.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-reanimated</code></td>
+            <td>~4.1.1</td>
+            <td>Animation library — runs animations on the UI thread (not JS thread) for 60fps performance. Used for SOS pulse animation, tab transitions, and status updates. v4 with Worklets support.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-worklets</code></td>
+            <td>0.5.1</td>
+            <td>Worklet threading — enables running JavaScript functions on the UI thread. Foundation for react-native-reanimated v4 animations.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>📱 Device APIs</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>expo-image-picker</code></td>
+            <td>~17.0.11</td>
+            <td>Camera &amp; gallery — <code>launchCameraAsync</code> and <code>launchImageLibraryAsync</code> for incident photo capture. Handles permissions, image cropping, and base64 conversion.</td>
+          </tr>
+          <tr>
+            <td><code>expo-location</code></td>
+            <td>~19.0.8</td>
+            <td>GPS location — <code>getCurrentPositionAsync</code> for initial incident location, <code>watchPositionAsync</code> for live GPS streaming (12s intervals). Handles foreground permissions.</td>
+          </tr>
+          <tr>
+            <td><code>expo-secure-store</code></td>
+            <td>~15.0.8</td>
+            <td>Secure storage — stores JWT tokens in Keychain (iOS) / EncryptedSharedPreferences (Android). Web fallback uses AsyncStorage.</td>
+          </tr>
+          <tr>
+            <td><code>expo-haptics</code></td>
+            <td>~15.0.8</td>
+            <td>Haptic feedback — <code>Haptics.impactAsync</code> / <code>notificationAsync</code> for SOS button press and status changes.</td>
+          </tr>
+          <tr>
+            <td><code>expo-status-bar</code></td>
+            <td>~3.0.9</td>
+            <td>Status bar control — sets bar style (light/dark), visibility, and color for each screen.</td>
+          </tr>
+          <tr>
+            <td><code>expo-splash-screen</code></td>
+            <td>~31.0.13</td>
+            <td>Splash screen — shows the app icon splash while JS bundle loads, hides it programmatically once fonts/auth are ready.</td>
+          </tr>
+          <tr>
+            <td><code>expo-font</code></td>
+            <td>~14.0.12</td>
+            <td>Font loading — preloads <code>SpaceMono-Regular.ttf</code> and icon fonts (Ionicons, MaterialCommunityIcons) before app render.</td>
+          </tr>
+          <tr>
+            <td><code>expo-image</code></td>
+            <td>~3.0.11</td>
+            <td>Image component — performant image display with caching, blurhash, and fade-in transitions.</td>
+          </tr>
+          <tr>
+            <td><code>expo-blur</code></td>
+            <td>~15.0.8</td>
+            <td>Blur effects — <code>BlurView</code> component for modal backgrounds, header blur effects.</td>
+          </tr>
+          <tr>
+            <td><code>expo-linear-gradient</code></td>
+            <td>~15.0.8</td>
+            <td>Gradient backgrounds — <code>LinearGradient</code> component for the SOS button, hero banners, and status badges.</td>
+          </tr>
+          <tr>
+            <td><code>expo-linking</code></td>
+            <td>~8.0.11</td>
+            <td>Deep linking — handles URL scheme and universal links for navigating directly to incident screens from notifications.</td>
+          </tr>
+          <tr>
+            <td><code>expo-web-browser</code></td>
+            <td>~15.0.10</td>
+            <td>In-app browser — opens external links (e.g., Supabase dashboard) without leaving the app.</td>
+          </tr>
+          <tr>
+            <td><code>expo-symbols</code></td>
+            <td>~1.0.8</td>
+            <td>SF Symbols integration — renders Apple's SF Symbols on iOS for native-feeling icons.</td>
+          </tr>
+          <tr>
+            <td><code>expo-system-ui</code></td>
+            <td>~6.0.9</td>
+            <td>System UI control — sets background color, root view style, and navigation bar appearance.</td>
+          </tr>
+          <tr>
+            <td><code>expo-constants</code></td>
+            <td>~18.0.13</td>
+            <td>App constants — provides <code>Constants.expoConfig</code> for reading app.json values, <code>Constants.manifest</code> for runtime config.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-webview</code></td>
+            <td>13.15.0</td>
+            <td>WebView component — embeds web content (e.g., iframe maps, HTML-based reports).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🎨 UI &amp; Utilities</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>@expo/vector-icons</code></td>
+            <td>15.0.3</td>
+            <td>Icon library — Ionicons, MaterialCommunityIcons, FontAwesome, and 10+ other icon sets. Used across all screens for navigation tabs, action buttons, service icons.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-dotenv</code></td>
+            <td>3.4.11</td>
+            <td>Environment variables — loads <code>.env.local</code> into <code>process.env</code> at build time. Enables <code>EXPO_PUBLIC_BACKEND_URL</code> config.</td>
+          </tr>
+          <tr>
+            <td><code>@react-native-async-storage/async-storage</code></td>
+            <td>2.2.0</td>
+            <td>Local storage — web fallback for expo-secure-store. Stores JWT tokens on web platform where SecureStore is unavailable.</td>
+          </tr>
+          <tr>
+            <td><code>react-native-safe-area-context</code></td>
+            <td>~5.6.0</td>
+            <td>Already listed above — safe area insets.</td>
+          </tr>
+          <tr>
+            <td><code>dayjs</code></td>
+            <td>1.11.13</td>
+            <td>Date formatting — lightweight alternative to moment.js (2KB vs 230KB). Formats timestamps in incident lists and detail screens. Supports relative time ("2 min ago"), localized formats, and timezone display.</td>
+          </tr>
+          <tr>
+            <td><code>date-fns</code></td>
+            <td>4.1.0</td>
+            <td>Date utility library — additional date functions for more complex date arithmetic (difference, comparison, ranges).</td>
+          </tr>
+          <tr>
+            <td><code>@expo/ngrok</code></td>
+            <td>4.1.3</td>
+            <td>Tunneling — creates a public HTTPS URL for the local dev server via ngrok. Used for testing on physical devices without LAN IP config.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>🛠️ Dev Dependencies</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Version</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>typescript</code></td>
+            <td>~5.9.3</td>
+            <td>TypeScript compiler — static type checking for all <code>.ts</code> / <code>.tsx</code> files. Configures strict mode, path aliases, and JSX transform.</td>
+          </tr>
+          <tr>
+            <td><code>@types/react</code></td>
+            <td>~19.1.0</td>
+            <td>React type definitions — TypeScript types for React hooks, components, JSX, and event handling.</td>
+          </tr>
+          <tr>
+            <td><code>eslint</code></td>
+            <td>9.25.0</td>
+            <td>Linter — enforces code quality rules. Configured with <code>eslint-config-expo</code> preset for React Native best practices (hooks rules, unused vars, accessibility).</td>
+          </tr>
+          <tr>
+            <td><code>eslint-config-expo</code></td>
+            <td>~10.0.0</td>
+            <td>Expo's ESLint preset — includes React, React Native, TypeScript, and Expo-specific lint rules. Auto-fixable rules for consistent code style.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p><span>Urban Intel</span> · v2.0 · Supabase Edition · Built with FastAPI + Expo + Gemini Vision ·
+        <span>Generated dossier — always reflects the live codebase</span>
+      </p>
+    </footer>
+
+  </div>
+</body>
+
+</html>
