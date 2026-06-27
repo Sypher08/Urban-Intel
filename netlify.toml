@@ -2,6 +2,16 @@
   publish = "backend/static"
 
 [[redirects]]
+  from = "/"
+  to = "/app.html"
+  status = 200
+
+[[redirects]]
+  from = "/backend/static/app.html"
+  to = "/app.html"
+  status = 301
+
+[[redirects]]
   from = "/api/*"
   to = "https://urban-intel-api.onrender.com/api/:splat"
   status = 200

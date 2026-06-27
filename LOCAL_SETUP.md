@@ -23,6 +23,22 @@ The backend stores all data in your Supabase project (`https://rzyliopxrugdzbmjz
 
 ## 2. Backend (FastAPI) — terminal 1
 
+From the repository root on Windows:
+
+```powershell
+py -3.10 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Verify:
+
+```powershell
+curl http://localhost:8000/api/health
+```
+
+Or from inside the `backend` folder on macOS/Linux:
+
 ```bash
 cd backend
 python3 -m venv .venv
